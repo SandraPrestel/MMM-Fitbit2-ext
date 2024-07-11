@@ -14,54 +14,308 @@ Module.register("MMM-Fitbit2-ext", {
 	// Initial values
 	userData: {
 		steps: {
-			value: 0,
-			goal: 10000,
+			day1: {
+				weekday: 'Mo',
+				value: 0,
+				goal: 10000,
+			},
+			day2: {
+				weekday: 'Tu',
+				value: 0,
+				goal: 10000,
+			},
+			day3: {
+				weekday: 'We',
+				value: 0,
+				goal: 10000,
+			},
+			day4: {
+				weekday: 'Th',
+				value: 0,
+				goal: 10000,
+			},
+			day5: {
+				weekday: 'Fr',
+				value: 0,
+				goal: 10000,
+			},
+			day6: {
+				weekday: 'Sa',
+				value: 0,
+				goal: 10000,
+			},
+			day7: {
+				weekday: 'Su',
+				value: 0,
+				goal: 10000,
+			},
 			unit: "steps"
 		},
 		caloriesOut: {
-			value: 0,
-			goal: 2000,
+			day1: {
+				weekday: 'Mo',
+				value: 0,
+				goal: 2000,
+			},
+			day2: {
+				weekday: 'Tu',
+				value: 0,
+				goal: 2000,
+			},
+			day3: {
+				weekday: 'We',
+				value: 0,
+				goal: 2000,
+			},
+			day4: {
+				weekday: 'Th',
+				value: 0,
+				goal: 2000,
+			},
+			day5: {
+				weekday: 'Fr',
+				value: 0,
+				goal: 2000,
+			},
+			day6: {
+				weekday: 'Sa',
+				value: 0,
+				goal: 2000,
+			},
+			day7: {
+				weekday: 'Su',
+				value: 0,
+				goal: 2000,
+			},
 			unit: "cals"
 		},
 		distance: {
-			value: 0,
-			goal: 5,
+			day1: {
+				weekday: 'Mo',
+				value: 0,
+				goal: 5,
+			},
+			day2: {
+				weekday: 'Tu',
+				value: 0,
+				goal: 5,
+			},
+			day3: {
+				weekday: 'We',
+				value: 0,
+				goal: 5,
+			},
+			day4: {
+				weekday: 'Th',
+				value: 0,
+				goal: 5,
+			},
+			day5: {
+				weekday: 'Fr',
+				value: 0,
+				goal: 5,
+			},
+			day6: {
+				weekday: 'Sa',
+				value: 0,
+				goal: 5,
+			},
+			day7: {
+				weekday: 'Su',
+				value: 0,
+				goal: 5,
+			},
 			unit: "km"
 		},
 		activeMinutes: {
-			value: 0,
-			goal: 30,
+			day1: {
+				weekday: 'Mo',
+				value: 0,
+				goal: 30,
+			},
+			day2: {
+				weekday: 'Tu',
+				value: 0,
+				goal: 30,
+			},
+			day3: {
+				weekday: 'We',
+				value: 0,
+				goal: 30,
+			},
+			day4: {
+				weekday: 'Th',
+				value: 0,
+				goal: 30,
+			},
+			day5: {
+				weekday: 'Fr',
+				value: 0,
+				goal: 30,
+			},
+			day6: {
+				weekday: 'Sa',
+				value: 0,
+				goal: 30,
+			},
+			day7: {
+				weekday: 'Su',
+				value: 0,
+				goal: 30,
+			},
 			unit: "mins"
 		},
-		floors: {
-			value: 0,
-			goal: 10,
-			unit: "floors"
-		},
 		restingHeart: {
-			value: 0,
-			goal: 0,
+			day1: {
+				weekday: 'Mo',
+				value: 0,
+				goal: 60,
+			},
+			day2: {
+				weekday: 'Tu',
+				value: 0,
+				goal: 60,
+			},
+			day3: {
+				weekday: 'We',
+				value: 0,
+				goal: 60,
+			},
+			day4: {
+				weekday: 'Th',
+				value: 0,
+				goal: 60,
+			},
+			day5: {
+				weekday: 'Fr',
+				value: 0,
+				goal: 60,
+			},
+			day6: {
+				weekday: 'Sa',
+				value: 0,
+				goal: 60,
+			},
+			day7: {
+				weekday: 'Su',
+				value: 0,
+				goal: 60,
+			},
 			unit: "bpm"
 		},
 		water: {
-			value: 0,
-			goal: 2000,
+			day1: {
+				weekday: 'Mo',
+				value: 0,
+				goal: 2000,
+			},
+			day2: {
+				weekday: 'Tu',
+				value: 0,
+				goal: 2000,
+			},
+			day3: {
+				weekday: 'We',
+				value: 0,
+				goal: 2000,
+			},
+			day4: {
+				weekday: 'Th',
+				value: 0,
+				goal: 2000,
+			},
+			day5: {
+				weekday: 'Fr',
+				value: 0,
+				goal: 2000,
+			},
+			day6: {
+				weekday: 'Sa',
+				value: 0,
+				goal: 2000,
+			},
+			day7: {
+				weekday: 'Su',
+				value: 0,
+				goal: 2000,
+			},
 			unit: "ml"
 		},
 		caloriesIn: {
-			value: 0,
-			goal: 2000,
+			day1: {
+				weekday: 'Mo',
+				value: 0,
+				goal: 2000,
+			},
+			day2: {
+				weekday: 'Tu',
+				value: 0,
+				goal: 2000,
+			},
+			day3: {
+				weekday: 'We',
+				value: 0,
+				goal: 2000,
+			},
+			day4: {
+				weekday: 'Th',
+				value: 0,
+				goal: 2000,
+			},
+			day5: {
+				weekday: 'Fr',
+				value: 0,
+				goal: 2000,
+			},
+			day6: {
+				weekday: 'Sa',
+				value: 0,
+				goal: 2000,
+			},
+			day7: {
+				weekday: 'Su',
+				value: 0,
+				goal: 2000,
+			},
 			unit: "cals"
 		},
 		sleep: {
-			value: 0,
-			goal: 480,
+			day1: {
+				weekday: 'Mo',
+				value: 0,
+				goal: 8000,
+			},
+			day2: {
+				weekday: 'Tu',
+				value: 0,
+				goal: 8000,
+			},
+			day3: {
+				weekday: 'We',
+				value: 0,
+				goal: 8000,
+			},
+			day4: {
+				weekday: 'Th',
+				value: 0,
+				goal: 8000,
+			},
+			day5: {
+				weekday: 'Fr',
+				value: 0,
+				goal: 8000,
+			},
+			day6: {
+				weekday: 'Sa',
+				value: 0,
+				goal: 8000,
+			},
+			day7: {
+				weekday: 'Su',
+				value: 0,
+				goal: 8000,
+			},
 			unit: "" // Formatted as HH:MM - no explicit unit
-		},
-		weight: {
-			value: 0,
-			goal: 0,
-			unit: "kg"
 		}
 	},
 
