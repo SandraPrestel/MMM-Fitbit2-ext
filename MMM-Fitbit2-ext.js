@@ -557,9 +557,13 @@ Module.register("MMM-Fitbit2-ext", {
 				  backgroundColor: [
 					'rgb(255, 99, 132)',
 					'rgb(54, 162, 235)'
-				  ]
+				  	]
 				}]
-			  }
+			},
+			options: {
+				legend: {display: false}, 
+			  	tooltips: {enabled: false}
+			}
 		  });
 
 		chartDiv.appendChild(chart);
