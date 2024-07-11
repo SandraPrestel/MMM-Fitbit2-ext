@@ -350,12 +350,14 @@ Module.register("MMM-Fitbit2-ext", {
 	// Override socket notification handler.
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === "API_DATA_RECEIVED") {
+			Log.log("Data received")
+
 			if (payload.clientId != this.config.credentials.clientId) {
 				// Not for this user
 				return
 			}
 
-			console.log("Data received, writing to internal storage...")
+			Log.log("Writing to internal storage...")
 
 			// if the resource sent within the payload is used, write its data into the global variable userData
 			resource = payload.resource;
@@ -389,7 +391,7 @@ Module.register("MMM-Fitbit2-ext", {
 				this.userData[resource]["day7"]["value"] = payload.values.day7.data;
 				this.userData[resource]["day7"]["goal"] = payload.values.day7.goal;
 
-				Log.log("Writing " + resource);
+				Log.log("Wrote " + resource);
 			}
 		}
 		if (notification === "UPDATE_VIEW") {
