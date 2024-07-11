@@ -569,7 +569,7 @@ Module.register("MMM-Fitbit2-ext", {
 		day3chart = this.ChartElement(resource, this.userData[resource]["day3"]['weekday'], this.userData[resource]["day3"]["value"], this.userData[resource]["day3"]["goal"]);
 		chartRowDiv.appendChild(day3chart);
 
-		da4chart = this.ChartElement(resource, this.userData[resource]["day4"]['weekday'], this.userData[resource]["day4"]["value"], this.userData[resource]["day4"]["goal"]);
+		day4chart = this.ChartElement(resource, this.userData[resource]["day4"]['weekday'], this.userData[resource]["day4"]["value"], this.userData[resource]["day4"]["goal"]);
 		chartRowDiv.appendChild(day4chart);
 
 		day5chart = this.ChartElement(resource, this.userData[resource]["day5"]['weekday'], this.userData[resource]["day5"]["value"], this.userData[resource]["day5"]["goal"]);
