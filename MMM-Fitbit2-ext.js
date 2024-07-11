@@ -457,7 +457,7 @@ Module.register("MMM-Fitbit2-ext", {
 	},
 
 	// Generate div for first part of text div
-	userDataValueDiv: function(resource) {
+/* 	userDataValueDiv: function(resource) {
 		var userDataValueDiv = document.createElement("div");
 		userDataValueDiv.className = "normal medium";
 
@@ -470,19 +470,19 @@ Module.register("MMM-Fitbit2-ext", {
 		}
 
 		return userDataValueDiv;
-	},
+	}, */
 
 	// Generate div for second part of text div
-	userDataUnitDiv: function(resource) {
+/* 	userDataUnitDiv: function(resource) {
 		var userDataMeasurementUnit = document.createElement("div");
 		userDataMeasurementUnit.className = "dimmed small";
 		userDataMeasurementUnit.innerHTML = this.userData[resource]["unit"];
 
 		return userDataMeasurementUnit;
-	},
+	}, */
 
 	// Generate div for text (data + unit)
-	textDiv: function(resource) {
+/* 	textDiv: function(resource) {
 		var textDiv = document.createElement("div");
 		textDiv.className = "widgettext";
 
@@ -491,10 +491,10 @@ Module.register("MMM-Fitbit2-ext", {
 		textDiv.appendChild(this.userDataUnitDiv(resource));
 
 		return textDiv
-	},
+	}, */
 
 	// Generate div for progress (grey background line and white overlay)
-	progressBarDiv: function(resource) {
+/* 	progressBarDiv: function(resource) {
 		// Start with background
 		var progressBarMasterDiv = document.createElement("div");
 		progressBarMasterDiv.className = "widgetprogbarbkg";
@@ -517,7 +517,7 @@ Module.register("MMM-Fitbit2-ext", {
 		progressBarMasterDiv.appendChild(progressBarChildDiv);
 
 		return progressBarMasterDiv;
-	},
+	}, */
 
 	// Create a Pie chart representing the value reached per goal for a day, with day above and number below
 	ChartElement: function(resource, day, value, goal) {
