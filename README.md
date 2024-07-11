@@ -178,11 +178,11 @@ This must not be done too often otherwise the rate limit will be exceeded, and F
 
 ### CSS
 
-- MMM-Fitbit2.css - styling.
+- MMM-Fitbit2-ext.css - styling.
 
 ## Development
 
-Work to be done is identified and tracked [https://github.com/m-roberts/MMM-Fitbit2/projects](here).
+Work to be done on MMM-Fitbit2 is identified and tracked [https://github.com/m-roberts/MMM-Fitbit2/projects](here).
 
 ## Troubleshooting
 
