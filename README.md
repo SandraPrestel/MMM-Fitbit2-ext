@@ -1,5 +1,8 @@
-MMM-Fitbit2
+MMM-Fitbit2-ext
 ===
+### This Fork is to experiment with reading and evaluating fitbit data for multiple days.
+### Work in Progress!
+
 ### _Current Development Status: Work In Progress_
 (_Work to be done is identified and tracked [here](https://github.com/m-roberts/MMM-Fitbit2/projects)_)
 
