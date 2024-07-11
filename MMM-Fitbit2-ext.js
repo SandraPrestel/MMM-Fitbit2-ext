@@ -564,22 +564,22 @@ Module.register("MMM-Fitbit2-ext", {
 		chartRowDiv.appendChild(day1chart);
 
 		day2chart = this.ChartElement(resource, this.userData[resource]["day2"]['weekday'], this.userData[resource]["day2"]["value"], this.userData[resource]["day2"]["goal"]);
-		chartRowDiv.appendChild(day1chart);
+		chartRowDiv.appendChild(day2chart);
 
 		day3chart = this.ChartElement(resource, this.userData[resource]["day3"]['weekday'], this.userData[resource]["day3"]["value"], this.userData[resource]["day3"]["goal"]);
-		chartRowDiv.appendChild(day1chart);
+		chartRowDiv.appendChild(day3chart);
 
 		da4chart = this.ChartElement(resource, this.userData[resource]["day4"]['weekday'], this.userData[resource]["day4"]["value"], this.userData[resource]["day4"]["goal"]);
-		chartRowDiv.appendChild(day1chart);
+		chartRowDiv.appendChild(day4chart);
 
 		day5chart = this.ChartElement(resource, this.userData[resource]["day5"]['weekday'], this.userData[resource]["day5"]["value"], this.userData[resource]["day5"]["goal"]);
-		chartRowDiv.appendChild(day1chart);
+		chartRowDiv.appendChild(day5chart);
 
 		day6chart = this.ChartElement(resource, this.userData[resource]["day6"]['weekday'], this.userData[resource]["day6"]["value"], this.userData[resource]["day6"]["goal"]);
-		chartRowDiv.appendChild(day1chart);
+		chartRowDiv.appendChild(day6chart);
 
 		day7chart = this.ChartElement(resource, this.userData[resource]["day7"]['weekday'], this.userData[resource]["day7"]["value"], this.userData[resource]["day7"]["goal"]);
-		chartRowDiv.appendChild(day1chart);
+		chartRowDiv.appendChild(day7chart);
 
 		return chartRowDiv;
 

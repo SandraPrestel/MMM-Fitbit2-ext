@@ -8,6 +8,12 @@
 	padding: 10px 5px 0 5px;
 }
 
+.MMM-Fitbit2-ext .chartrow {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
 .MMM-Fitbit2-ext .widgettext {
 	height: 60px;
 	padding: 0 0 5px 0;
