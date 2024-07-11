@@ -400,6 +400,8 @@ Module.register("MMM-Fitbit2-ext", {
 	},
 
 	getData: function(trigger) {
+		console.log("Trigger Data Request")
+		
 		payload = {};
 		payload.config = this.config;
 		payload.trigger = trigger;
