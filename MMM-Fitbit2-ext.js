@@ -544,18 +544,24 @@ Module.register("MMM-Fitbit2-ext", {
 		var ctx = document.createElement("canvas");
 		chart.appendChild(ctx);
 
-		chartData = {
-			labels: ["Red", "Blue"],
-			datasets: [{
-				data: [20, 30],
-				backgroundcolor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)']
-			}]
-		};
-
 		chartObject = new Chart(ctx, {
-			type: 'doughnut',
-			data: this.chartData 
-		});
+			type: 'bar',
+			data: {
+			  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+			  datasets: [{
+				label: '# of Votes',
+				data: [12, 19, 3, 5, 2, 3],
+				borderWidth: 1
+			  }]
+			},
+			options: {
+			  scales: {
+				y: {
+				  beginAtZero: true
+				}
+			  }
+			}
+		  });
 
 		chartDiv.appendChild(chart);
 
