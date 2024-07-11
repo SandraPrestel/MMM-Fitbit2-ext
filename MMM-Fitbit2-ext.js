@@ -355,11 +355,39 @@ Module.register("MMM-Fitbit2-ext", {
 				return
 			}
 
+			// if the resource sent within the payload is used, write its data into the global variable userData
 			resource = payload.resource;
 			if (this.inResources(resource)) {
-				this.userData[resource]["value"] = payload.values.data;
-				this.userData[resource]["goal"] = payload.values.goal;
-				Log.log("Writing " + resource + " (data/goal): " + this.userData[resource]["value"] + "/" + this.userData[resource]["goal"]);
+				// TODO: put this into a loop
+				this.userData[resource]["day1"]["weekday"] = payload.values.day1.weekday;
+				this.userData[resource]["day1"]["value"] = payload.values.day1.data;
+				this.userData[resource]["day1"]["goal"] = payload.values.day1.goal;
+
+				this.userData[resource]["day2"]["weekday"] = payload.values.day2.weekday;
+				this.userData[resource]["day2"]["value"] = payload.values.day2.data;
+				this.userData[resource]["day2"]["goal"] = payload.values.day2.goal;
+
+				this.userData[resource]["day3"]["weekday"] = payload.values.day3.weekday;
+				this.userData[resource]["day3"]["value"] = payload.values.day3.data;
+				this.userData[resource]["day3"]["goal"] = payload.values.day3.goal;
+
+				this.userData[resource]["day4"]["weekday"] = payload.values.day4.weekday;
+				this.userData[resource]["day4"]["value"] = payload.values.day4.data;
+				this.userData[resource]["day4"]["goal"] = payload.values.day4.goal;
+
+				this.userData[resource]["day5"]["weekday"] = payload.values.day5.weekday;
+				this.userData[resource]["day5"]["value"] = payload.values.day5.data;
+				this.userData[resource]["day5"]["goal"] = payload.values.day5.goal;
+
+				this.userData[resource]["day6"]["weekday"] = payload.values.day6.weekday;
+				this.userData[resource]["day6"]["value"] = payload.values.day6.data;
+				this.userData[resource]["day6"]["goal"] = payload.values.day6.goal;
+
+				this.userData[resource]["day7"]["weekday"] = payload.values.day7.weekday;
+				this.userData[resource]["day7"]["value"] = payload.values.day7.data;
+				this.userData[resource]["day7"]["goal"] = payload.values.day7.goal;
+
+				//Log.log("Writing " + resource + " (data/goal): " + this.userData[resource]["value"] + "/" + this.userData[resource]["goal"]);
 			}
 		}
 		if (notification === "UPDATE_VIEW") {
@@ -487,14 +515,90 @@ Module.register("MMM-Fitbit2-ext", {
 		return progressBarMasterDiv;
 	},
 
+	// Create a Pie chart representing the value reached per goal for a day, with day above and number below
+	ChartElement: function(resource, day, value, goal) {
+
+		var chartDiv = document.createElement("div");
+		chartDiv.className = "chartelement";
+
+		// Day
+		var dayDiv = document.createElement("div");
+		dayDiv.innerHTML = day;
+		chartDiv.appendChild(this.userDataValueDiv(dayDiv));
+
+		//TODO: Chart
+
+		// Value
+		var dataValueDiv = document.createElement("div");
+		dataValueDiv.className = "chartvalue";
+
+		if (["steps", "caloriesOut", "caloriesIn"].indexOf(resource) > -1) {
+			dataValueDiv.innerHTML = this.formatNumberWithCommas(value);
+		} else if (resource == "sleep") {
+			dataValueDiv.innerHTML = this.formatMinsToHourMin(value);
+		} else {
+			dataValueDiv.innerHTML = value;
+		}
+		
+		chartDiv.appendChild(dataValueDiv);
+
+
+		return chartDiv;
+
+	},
+
+	// Create a row of charts (one chart per day), preceded by the icon
+	ChartRowElement: function(resource){
+		var chartRowDiv = document.createElement("div");
+		chartRowDiv.className = "chartrow";
+
+		// add icon
+		chartRowDiv.appendChild(this.iconDiv(resource));
+
+		//TODO: make this in a loop
+		day1chart = this.ChartElement(resource, this.userData[resource]["day1"]['weekday'], this.userData[resource]["day1"]["value"], this.userData[resource]["day1"]["goal"]);
+		chartRowDiv.appendChild(day1chart);
+
+		day2chart = this.ChartElement(resource, this.userData[resource]["day2"]['weekday'], this.userData[resource]["day2"]["value"], this.userData[resource]["day2"]["goal"]);
+		chartRowDiv.appendChild(day1chart);
+
+		day3chart = this.ChartElement(resource, this.userData[resource]["day3"]['weekday'], this.userData[resource]["day3"]["value"], this.userData[resource]["day3"]["goal"]);
+		chartRowDiv.appendChild(day1chart);
+
+		da4chart = this.ChartElement(resource, this.userData[resource]["day4"]['weekday'], this.userData[resource]["day4"]["value"], this.userData[resource]["day4"]["goal"]);
+		chartRowDiv.appendChild(day1chart);
+
+		day5chart = this.ChartElement(resource, this.userData[resource]["day5"]['weekday'], this.userData[resource]["day5"]["value"], this.userData[resource]["day5"]["goal"]);
+		chartRowDiv.appendChild(day1chart);
+
+		day6chart = this.ChartElement(resource, this.userData[resource]["day6"]['weekday'], this.userData[resource]["day6"]["value"], this.userData[resource]["day6"]["goal"]);
+		chartRowDiv.appendChild(day1chart);
+
+		day7chart = this.ChartElement(resource, this.userData[resource]["day7"]['weekday'], this.userData[resource]["day7"]["value"], this.userData[resource]["day7"]["goal"]);
+		chartRowDiv.appendChild(day1chart);
+
+		return chartRowDiv;
+
+	},
+
 	// Make each resource element for the UI
 	UIElement: function(resource) {
 		var widgetDiv = document.createElement("div");
-		widgetDiv.className = "widget"
+		widgetDiv.className = "widget";
 
-		widgetDiv.appendChild(this.iconDiv(resource));
-		widgetDiv.appendChild(this.textDiv(resource));
-		widgetDiv.appendChild(this.progressBarDiv(resource));
+		// Header = Resource name
+		var textDiv = document.createElement("div");
+		textDiv.className = "widgetheader";
+		textDiv.innerHTML = resource
+
+		widgetDiv.appendChild(textDiv);
+
+		// Line: make widgetheader have a border-bottom in css
+		//TODO: css: border-bottom: 1px solid black;
+	
+
+		// Row of Charts
+		widgetDiv.appendChild(this.ChartRowElement(resource));
 
 		return widgetDiv;
 	},
