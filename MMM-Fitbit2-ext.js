@@ -389,7 +389,7 @@ Module.register("MMM-Fitbit2-ext", {
 				this.userData[resource]["day7"]["value"] = payload.values.day7.data;
 				this.userData[resource]["day7"]["goal"] = payload.values.day7.goal;
 
-				//Log.log("Writing " + resource + " (data/goal): " + this.userData[resource]["value"] + "/" + this.userData[resource]["goal"]);
+				Log.log("Writing " + resource);
 			}
 		}
 		if (notification === "UPDATE_VIEW") {
@@ -400,8 +400,6 @@ Module.register("MMM-Fitbit2-ext", {
 	},
 
 	getData: function(trigger) {
-		console.log("Trigger Data Request")
-		
 		payload = {};
 		payload.config = this.config;
 		payload.trigger = trigger;
