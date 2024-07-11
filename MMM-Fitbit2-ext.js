@@ -347,6 +347,14 @@ Module.register("MMM-Fitbit2-ext", {
 		return ["MMM-Fitbit2-ext.css"];
 	},
 
+	// Get the needed scripts to make graphs.
+    getScripts: function () {
+        return [
+            // Used to create the actual chart.
+            this.file('node_modules/chart.js/dist/chart.min.js'),
+        ]
+    },
+
 	// Override socket notification handler.
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === "API_DATA_RECEIVED") {
