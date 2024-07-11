@@ -1,14 +1,16 @@
 /* global Module */
 
 /* Magic Mirror
- * Module: MMM-Fitbit2
+ * Module: MMM-Fitbit2-ext
  *
  * Forked from MMM-fitbit by Sam Vendittelli
  * MMM-Fitbit2 modifications by Mike Roberts
+ * Forked from MMM-Fitbit2
+ * MMM-Fitbit2-ext modifications by Sandra Prestel
  * MIT Licensed.
  */
 
-Module.register("MMM-Fitbit2", {
+Module.register("MMM-Fitbit2-ext", {
 	// Initial values
 	userData: {
 		steps: {
@@ -84,12 +86,13 @@ Module.register("MMM-Fitbit2", {
 		debug: false,
 		test: false,
 		showLastSynced: false,
-		updateInterval: 10
+		updateInterval: 10,
+		pythonPath: "python3"	// set this in config.js if you use a virtual environment
 	},
 
 	// Define required scripts.
 	getStyles: function() {
-		return ["MMM-Fitbit2.css"];
+		return ["MMM-Fitbit2-ext.css"];
 	},
 
 	// Override socket notification handler.

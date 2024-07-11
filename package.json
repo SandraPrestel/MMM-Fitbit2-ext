@@ -1,27 +1,23 @@
 {
-  "name": "MMM-Fitbit2",
+  "name": "MMM-Fitbit2-ext",
   "version": "0.1.0",
   "description": "MagicMirror Module for displaying Fitbit data, retrieved from Fitbit API (https://api.fitbit.com).",
-  "main": "MMM-Fitbit2.js",
+  "main": "MMM-Fitbit2-ext.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/m-roberts/MMM-Fitbit2.git"
+    "url": "https://github.com/SandraPrestel/MMM-Fitbit2-ext.git"
   },
   "keywords": [],
-  "author": "Mike Roberts",
+  "author": "Sandra Prestel",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/m-roberts/MMM-Fitbit2/issues"
+    "url": "https://github.com/SandraPrestel/MMM-Fitbit2-ext/issues"
   },
-  "homepage": "https://github.com/m-roberts/MMM-Fitbit2#readme",
+  "homepage": "https://github.com/SandraPrestel/MMM-Fitbit2-ext#readme",
   "dependencies": {
-    "//": [
-      "Requires this version to work",
-      "https://github.com/SVendittelli/MMM-fitbit/issues/23#issuecomment-464319931"
-    ],
     "python-shell": "^0.5.0"
   }
 }

@@ -1,7 +1,6 @@
 /* Magic Mirror
- * Node Helper: MMM-Fitbit2
+ * Node Helper: MMM-Fitbit2-ext
  *
- * By Michael Teeuw http://michaelteeuw.nl
  * MIT Licensed.
  */
 
@@ -13,7 +12,7 @@ module.exports = NodeHelper.create({
 	// Subclass socketNotificationReceived received.
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === "GET DATA") {
-			console.log("MMM-Fitbit2: " + payload.trigger + " request to get data received");
+			console.log("MMM-Fitbit2-ext: " + payload.trigger + " request to get data received");
 			this.getData(payload.config);
 		}
 	},
@@ -28,9 +27,9 @@ module.exports = NodeHelper.create({
 		}
 
 		if (config.debug) {
-			console.log("MMM-Fitbit2: Data to receive: " + JSON.stringify(config));
+			console.log("MMM-Fitbit2-ext: Data to receive: " + JSON.stringify(config));
 		}
-		console.log("MMM-Fitbit2: START " + fileName);
+		console.log("MMM-Fitbit2-ext: START " + fileName);
 
 		var pyArgs = []
 
@@ -48,14 +47,14 @@ module.exports = NodeHelper.create({
 		pyArgs = pyArgs.concat(config.resources)
 
 		if (config.debug) {
-			console.log("MMM-Fitbit2: " + JSON.stringify(pyArgs))
+			console.log("MMM-Fitbit2-ext: " + JSON.stringify(pyArgs))
 		}
 
 		const fitbitPyShell = new PythonShell(
 			fileName, {
 				mode: "json",
-				scriptPath: "modules/MMM-Fitbit2/python",
-				pythonPath: "python3",
+				scriptPath: "modules/MMM-Fitbit2-ext/python",
+				pythonPath: config.pythonPath,
 				pythonOptions: ["-u"], // get print results in real-time
 				args: pyArgs
 			}
@@ -63,7 +62,7 @@ module.exports = NodeHelper.create({
 
 		fitbitPyShell.on("message", function (message) {
 			if (config.debug) {
-				console.log("MMM-Fitbit2: Message received: " + JSON.stringify(message))
+				console.log("MMM-Fitbit2-ext: Message received: " + JSON.stringify(message))
 			}
 			if (message.type == "data") {
 				message.clientId = config.credentials.clientId
@@ -76,7 +75,7 @@ module.exports = NodeHelper.create({
 				throw err;
 			}
 			self.sendSocketNotification("UPDATE_VIEW", "Finished getting data from Fitbit API");
-			console.log("MMM-Fitbit2: END " + fileName);
+			console.log("MMM-Fitbit2-ext: END " + fileName);
 		});
 	},
 });
