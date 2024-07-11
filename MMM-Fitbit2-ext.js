@@ -528,7 +528,7 @@ Module.register("MMM-Fitbit2-ext", {
 		// Day
 		var dayDiv = document.createElement("div");
 		dayDiv.innerHTML = day;
-		chartDiv.appendChild(this.userDataValueDiv(dayDiv));
+		chartDiv.appendChild(dayDiv);
 
 		//TODO: Chart
 
