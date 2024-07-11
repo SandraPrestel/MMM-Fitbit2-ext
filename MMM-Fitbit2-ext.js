@@ -10,8 +10,6 @@
  * MIT Licensed.
  */
 
-import Chart from 'chart.js/auto';
-
 Module.register("MMM-Fitbit2-ext", {
 	// Initial values
 	userData: {
