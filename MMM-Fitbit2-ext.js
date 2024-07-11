@@ -73,15 +73,13 @@ Module.register("MMM-Fitbit2-ext", {
 		},
 		resources: [
 			"steps",
-			"caloriesOut",
 			"distance",
 			"activeMinutes",
-			"floors",
-			"restingHeart",
-			"water",
+			"caloriesOut",
 			"caloriesIn",
-			"sleep",
-			"weight"
+			"water",
+			"restingHeart",
+			"sleep"
 		],
 		debug: false,
 		test: false,
