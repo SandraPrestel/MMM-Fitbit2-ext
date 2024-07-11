@@ -538,18 +538,18 @@ Module.register("MMM-Fitbit2-ext", {
 		//TODO: Chart
 		var chart = document.createElement("div");
 		chart.className = "chart";
+		chart.style.width = "50px";
+		chart.style.height = "50px";
 
 		var ctx = document.createElement("canvas");
 		chart.appendChild(ctx);
 
 		chartData = {
+			labels: ["Red", "Blue"],
 			datasets: [{
-				data: [20, 30]
-			}],
-			labels: [
-				'Yellow',
-				'Blue'
-			]
+				data: [20, 30],
+				backgroundcolor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)']
+			}]
 		};
 
 		chartObject = new Chart(ctx, {
