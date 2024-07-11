@@ -351,10 +351,7 @@ Module.register("MMM-Fitbit2-ext", {
 
 	// Get the needed scripts to make graphs.
     getScripts: function () {
-        return [
-            // Used to create the actual chart.
-            this.file('node_modules/chart.js/dist/chart.min.js'),
-        ]
+        return ["modules/" + this.name + "/node_modules/chart.js/dist/Chart.min.js"];
     },
 
 	// Override socket notification handler.
