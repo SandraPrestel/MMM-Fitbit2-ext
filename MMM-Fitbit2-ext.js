@@ -557,7 +557,7 @@ Module.register("MMM-Fitbit2-ext", {
 			data: this.chartData 
 		});
 
-		chartDiv.appendChild(chartDiv);
+		chartDiv.appendChild(chart);
 
 		// Value
 		var dataValueDiv = document.createElement("div");
