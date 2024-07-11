@@ -355,6 +355,8 @@ Module.register("MMM-Fitbit2-ext", {
 				return
 			}
 
+			console.log("Data received, writing to internal storage...")
+
 			// if the resource sent within the payload is used, write its data into the global variable userData
 			resource = payload.resource;
 			if (this.inResources(resource)) {
@@ -539,7 +541,7 @@ Module.register("MMM-Fitbit2-ext", {
 		} else {
 			dataValueDiv.innerHTML = value;
 		}
-		
+
 		chartDiv.appendChild(dataValueDiv);
 
 
