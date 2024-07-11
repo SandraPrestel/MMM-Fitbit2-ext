@@ -531,6 +531,28 @@ Module.register("MMM-Fitbit2-ext", {
 		chartDiv.appendChild(dayDiv);
 
 		//TODO: Chart
+		var chart = document.createElement("div");
+		chart.className = "chart";
+
+		var ctx = document.createElement("canvas");
+		chart.appendChild(ctx);
+
+		chartData = {
+			datasets: [{
+				data: [20, 30]
+			}],
+			labels: [
+				'Yellow',
+				'Blue'
+			]
+		};
+
+		chartObject = new Chart(ctx, {
+			type: 'doughnut',
+			data: this.chartData 
+		});
+
+		chartDiv.appendChild(chartDiv);
 
 		// Value
 		var dataValueDiv = document.createElement("div");
