@@ -128,9 +128,9 @@ if __name__ == "__main__":
 
     days = []
     for i in range(7):
-        days.append(today - timedelta(days=7-1))
+        days.append(today - timedelta(days=7-i))
 
-    print_json("debug", "day 1:" + str(days[0]))
+    print_json("debug", "days:" + str(days))
     
     # Get the weekday for these days
     week = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
@@ -138,7 +138,7 @@ if __name__ == "__main__":
     for day in days:
         weekdays.append(week[day.weekday()])
     
-    print_json("debug", "weekday 1:" + str(weekdays[0]))
+    print_json("debug", "weekdays" + str(weekdays))
 
     
     #####################################################
@@ -160,6 +160,8 @@ if __name__ == "__main__":
             activity_summaries.append(activity_list["summary"])
             activity_goals.append(activity_list["goals"])
 
+            print_json("debug", "Activity summary :" + str(day) + " - " + str(activity_list))
+
         ### Print the data for all activities
         if len(resource_list) == 0:
             activity_resources_selected = activity_resources_easy_parse
@@ -172,8 +174,6 @@ if __name__ == "__main__":
             try:
                 currentData = []
                 currentGoals = []
-
-                print_json("debug", "Activity summary :" + str(activity_summaries))
 
                 for i in range(7):
                     currentData.append(activity_summaries[i][resource])
