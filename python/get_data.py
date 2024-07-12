@@ -91,7 +91,7 @@ if __name__ == "__main__":
         print_data(
             resource=token,
             data=0,
-            goal=1,
+            goals=1,
             debug=True
         )
         acc_tok = token["access_token"]
@@ -211,7 +211,7 @@ if __name__ == "__main__":
                 print_data(
                     resource=resource,
                     data=currentData,
-                    goal=currentGoals,
+                    goals=currentGoals,
                     weekdays=weekdays
                 )
             except KeyError as err:
@@ -239,7 +239,7 @@ if __name__ == "__main__":
                 print_data(
                     resource="activeMinutes",
                     data=currentData,
-                    goal=currentGoals,
+                    goals=currentGoals,
                     weekdays=weekdays
                 )
             except KeyError as err:
@@ -330,7 +330,7 @@ if __name__ == "__main__":
                 print_data(
                     resource="distance",
                     data=currentData,
-                    goal=currentGoals,
+                    goals=currentGoals,
                     weekdays=weekdays
                 )
             except KeyError as err:
@@ -404,7 +404,7 @@ if __name__ == "__main__":
             print_data(
                 resource="sleep",
                 data=currentData,
-                goal=currentGoals,
+                goals=currentGoals,
                 weekdays=weekdays
             )
         except KeyError as err:
@@ -457,7 +457,7 @@ if __name__ == "__main__":
             print_data(
                 resource="restingHeart",
                 data=currentData,
-                goal=goalData,
+                goals=goalData,
                 weekdays=weekdays
             )
         except KeyError as err:
@@ -513,7 +513,7 @@ if __name__ == "__main__":
             print_data(
                 resource="caloriesIn",
                 data=currentData,
-                goal=currentGoals,
+                goals=currentGoals,
                 weekdays=weekdays
             )
         except KeyError as err:
@@ -576,7 +576,7 @@ if __name__ == "__main__":
             print_data(
                 resource="water",
                 data=currentData,
-                goal=currentGoals,
+                goals=currentGoals,
                 weekdays=weekdays
             )
         except KeyError as err:
