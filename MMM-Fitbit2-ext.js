@@ -479,7 +479,7 @@ Module.register("MMM-Fitbit2-ext", {
 			nonZeroGoal = value
 		}
 
-		timesReached = math.floor(value/nonZeroGoal);
+		timesReached = Math.floor(value/nonZeroGoal);
 
 		if (timesReached==0){
 			backgroundColorFull = 'rgb(30, 136, 229)';
