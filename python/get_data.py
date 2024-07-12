@@ -129,12 +129,16 @@ if __name__ == "__main__":
     days = []
     for i in range(7):
         days.append(today - timedelta(days=7-1))
+
+    print_json("debug", "day 1:" + str(days[0]))
     
     # Get the weekday for these days
     week = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
     weekdays = []
     for day in days:
         weekdays.append(week[day.weekday()])
+    
+    print_json("debug", "day 1:" + str(weekdays[0]))
 
     
     #####################################################
