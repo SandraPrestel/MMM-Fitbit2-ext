@@ -65,10 +65,10 @@ module.exports = NodeHelper.create({
 				console.log("MMM-Fitbit2-ext: Message received: " + JSON.stringify(message))
 			}
 			if (message.type == "data") {
-				console.log("API-Data received, sending Nofification...")
+				//console.log("API-Data received, sending Nofification...")
 				message.clientId = config.credentials.clientId
 				self.sendSocketNotification("API_DATA_RECEIVED", message);
-				console.log("API-Data Nofification sent.")
+				//console.log("API-Data Nofification sent.")
 			}
 		});
 
