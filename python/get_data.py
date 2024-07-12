@@ -90,8 +90,8 @@ if __name__ == "__main__":
         print_json("status", "Access token expired - refreshing tokens")
         print_data(
             resource=token,
-            data=0,
-            goals=1,
+            data=[0,0,0,0,0,0,0],
+            goals=[1,1,1,1,1,1,1],
             weekdays=["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
             debug=True
         )
