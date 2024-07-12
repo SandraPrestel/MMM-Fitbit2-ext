@@ -173,7 +173,7 @@ if __name__ == "__main__":
                 currentData = []
                 currentGoals = []
 
-                print_json("debug", "Activity summary [4]:" + str(activity_summaries[4]))
+                print_json("debug", "Activity summary :" + str(activity_summaries))
 
                 for i in range(7):
                     currentData.append(activity_summaries[i][resource])
