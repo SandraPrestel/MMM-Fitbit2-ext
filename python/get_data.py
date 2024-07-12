@@ -126,15 +126,16 @@ if __name__ == "__main__":
     day2 = today - timedelta(days=6)
     day1 = today - timedelta(days=7)
 
+    days = []
+    for i in range(7):
+        days.append(today - timedelta(days=7-1))
+    
     # Get the weekday for these days
     week = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
-    weekdays = [week[day1.weekday()], 
-                week[day2.weekday()],
-                week[day3.weekday()],
-                week[day4.weekday()],
-                week[day5.weekday()],
-                week[day6.weekday()],
-                week[day7.weekday()]]
+    weekdays = []
+    for day in days:
+        weekdays.append(week[day.weekday()])
+
     
     #####################################################
     print_json("status", "API polling stage", "Activity")
@@ -146,44 +147,16 @@ if __name__ == "__main__":
     if len(resource_list) == 0 or \
             any(item in activity_resources_all for item in resource_list):
 
+        ### Get the data for all days
+        activity_summaries = []
+        activity_goals = []
 
-        # Get Activities for Day 1
-        activity_list1 = authd_client.activities(day1)
-        activity_summary1 = activity_list1["summary"]
-        activity_goals1 = activity_list1["goals"]
+        for day in days:
+            activity_list = authd_client.activities(day)
+            activity_summaries.append = activity_list["summary"]
+            activity_goals.append = activity_list["goals"]
 
-        # Get Activities for Day 2
-        activity_list2 = authd_client.activities(day2)
-        activity_summary2 = activity_list2["summary"]
-        activity_goals2 = activity_list2["goals"]     
-
-        # Get Activities for Day 3
-        activity_list3 = authd_client.activities(day3)
-        activity_summary3 = activity_list3["summary"]
-        activity_goals3 = activity_list3["goals"] 
-
-        # Get Activities for Day 4
-        activity_list4 = authd_client.activities(day4)
-        activity_summary4 = activity_list4["summary"]
-        activity_goals4 = activity_list4["goals"] 
-
-        # Get Activities for Day 5
-        activity_list5 = authd_client.activities(day5)
-        activity_summary5 = activity_list5["summary"]
-        activity_goals5 = activity_list5["goals"] 
-
-        # Get Activities for Day 6
-        activity_list6 = authd_client.activities(day6)
-        activity_summary6 = activity_list6["summary"]
-        activity_goals6 = activity_list6["goals"] 
-
-        # Get Activities for Day 2
-        activity_list7 = authd_client.activities(day7)
-        activity_summary7 = activity_list7["summary"]
-        activity_goals7 = activity_list7["goals"] 
-
-
-        ### Print the data for all days
+        ### Print the data for all activities
         if len(resource_list) == 0:
             activity_resources_selected = activity_resources_easy_parse
         else:
@@ -193,21 +166,12 @@ if __name__ == "__main__":
         # Get resources that are easy to parse
         for resource in activity_resources_selected:
             try:
-                currentData = [activity_summary1[resource],
-                               activity_summary2[resource],
-                               activity_summary3[resource],
-                               activity_summary4[resource],
-                               activity_summary5[resource],
-                               activity_summary6[resource],
-                               activity_summary7[resource]]
-                
-                currentGoals = [activity_goals1[resource],
-                                activity_goals2[resource],
-                                activity_goals3[resource],
-                                activity_goals4[resource],
-                                activity_goals5[resource],
-                                activity_goals6[resource],
-                                activity_goals7[resource]]
+                currentData = []
+                currentGoals = []
+
+                for i in range(7):
+                    currentData.append[activity_summaries[i][resource]]
+                    currentGoals.append[activity_goals[i][resource]]
 
                 print_data(
                     resource=resource,
