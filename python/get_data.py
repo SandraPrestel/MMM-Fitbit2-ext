@@ -173,11 +173,13 @@ if __name__ == "__main__":
                 currentData = []
                 currentGoals = []
 
-                print_json("debug", "Activity summary [0]:" + str(activity_summaries[0]))
+                print_json("debug", "Activity summary [4]:" + str(activity_summaries[4]))
 
                 for i in range(7):
                     currentData.append(activity_summaries[i][resource])
                     currentGoals.append(activity_goals[i][resource])
+
+                print_json("debug", "CurrentData:" + str(currentData))
 
                 print_data(
                     resource=resource,
