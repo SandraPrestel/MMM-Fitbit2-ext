@@ -461,70 +461,75 @@ Module.register("MMM-Fitbit2-ext", {
 		return ("00" + hours.toString()).slice(-2) + ":" + ("00" + minutes.toString()).slice(-2);
 	},
 
-	// Generate div for first part of text div
-/* 	userDataValueDiv: function(resource) {
-		var userDataValueDiv = document.createElement("div");
-		userDataValueDiv.className = "normal medium";
+	// Standard Doughnut chart for most resources
+	StandardChart: function(value, goal) {
+		var chart = document.createElement("div");
+		chart.className = "chart";
+		chart.style.width = "50px";
+		chart.style.height = "50px";
 
-		if (["steps", "caloriesOut", "caloriesIn"].indexOf(resource) > -1) {
-			userDataValueDiv.innerHTML = this.formatNumberWithCommas(this.userData[resource]["value"]);
-		} else if (resource == "sleep") {
-			userDataValueDiv.innerHTML = this.formatMinsToHourMin(this.userData[resource]["value"]);
+		var ctx = document.createElement("canvas");
+		chart.appendChild(ctx);
+
+		// make sure that goal is not empty
+		if (goal > 0) {
+			nonZeroGoal = goal;
 		} else {
-			userDataValueDiv.innerHTML = this.userData[resource]["value"];
+			// if there is no goal, set value = goal
+			nonZeroGoal = value
 		}
 
-		return userDataValueDiv;
-	}, */
+		timesReached = math.floor(value/nonZeroGoal);
 
-	// Generate div for second part of text div
-/* 	userDataUnitDiv: function(resource) {
-		var userDataMeasurementUnit = document.createElement("div");
-		userDataMeasurementUnit.className = "dimmed small";
-		userDataMeasurementUnit.innerHTML = this.userData[resource]["unit"];
+		if (timesReached==0){
+			backgroundColorFull = 'rgb(30, 136, 229)';
+			backgroundColorEmpty = 'rgb(255,255,255)';
 
-		return userDataMeasurementUnit;
-	}, */
+			chartValue = value;
+			chartRemaining = nonZeroGoal - value;
 
-	// Generate div for text (data + unit)
-/* 	textDiv: function(resource) {
-		var textDiv = document.createElement("div");
-		textDiv.className = "widgettext";
+		} else if (timesReached==1) {
+			backgroundColorFull = 'rgb(147, 219, 64)';
+			backgroundColorEmpty = 'rgb(30, 136, 229)';
 
-
-		textDiv.appendChild(this.userDataValueDiv(resource));
-		textDiv.appendChild(this.userDataUnitDiv(resource));
-
-		return textDiv
-	}, */
-
-	// Generate div for progress (grey background line and white overlay)
-/* 	progressBarDiv: function(resource) {
-		// Start with background
-		var progressBarMasterDiv = document.createElement("div");
-		progressBarMasterDiv.className = "widgetprogbarbkg";
-
-		// Overlay actual progress
-		var progressBarChildDiv = document.createElement("div");
-		progressBarChildDiv.className = "widgetprogbar";
-
-		var width;
-		const exceededGoal = this.userData[resource]["value"] >= this.userData[resource]["goal"];
-		if (exceededGoal) {
-			width = 100;
+			chartValue = value - nonZeroGoal;
+			chartRemaining = nonZeroGoal - chartValue;
+	
 		} else {
-			width = Math.round(
-				Number(this.userData[resource]["value"]) / this.userData[resource]["goal"] * 100
-			)
+			// if the goal has been reached at least 2 times, make full circle green
+			backgroundColorFull = 'rgb(147, 219, 64)';
+			backgroundColorEmpty = 'rgb(147, 219, 64)';
+
+			chartValue = 100;
+			chartRemaining = 0;
 		}
-		progressBarChildDiv.style.width = width + "%";
 
-		progressBarMasterDiv.appendChild(progressBarChildDiv);
+		chartObject = new Chart(ctx, {
+			type: 'doughnut',
+			data: {
+				labels: [
+				  'value',
+				  'goal'
+				],
+				datasets: [{
+				  label: 'Chart',
+				  data: [chartValue, chartRemaining],
+				  backgroundColor: [
+					backgroundColorFull,
+					backgroundColorEmpty
+				  	]
+				}]
+			},
+			options: {
+				legend: {display: false}, 
+			  	tooltips: {enabled: false}
+			}
+		  });
 
-		return progressBarMasterDiv;
-	}, */
+		  return chart;
+	},
 
-	// Create a Pie chart representing the value reached per goal for a day, with day above and number below
+	// Create a chart representing the value reached per goal for a day, with day above and number below
 	ChartElement: function(resource, day, value, goal) {
 
 		var chartDiv = document.createElement("div");
@@ -535,38 +540,9 @@ Module.register("MMM-Fitbit2-ext", {
 		dayDiv.innerHTML = day;
 		chartDiv.appendChild(dayDiv);
 
-		//TODO: Chart
-		var chart = document.createElement("div");
-		chart.className = "chart";
-		chart.style.width = "50px";
-		chart.style.height = "50px";
-
-		var ctx = document.createElement("canvas");
-		chart.appendChild(ctx);
-
-		chartObject = new Chart(ctx, {
-			type: 'doughnut',
-			data: {
-				labels: [
-				  'Red',
-				  'Blue'
-				],
-				datasets: [{
-				  label: 'My First Dataset',
-				  data: [300, 50],
-				  backgroundColor: [
-					'rgb(255, 99, 132)',
-					'rgb(54, 162, 235)'
-				  	]
-				}]
-			},
-			options: {
-				legend: {display: false}, 
-			  	tooltips: {enabled: false}
-			}
-		  });
-
-		chartDiv.appendChild(chart);
+		// Chart
+		//TODO: different chart for heart rate
+		chartDiv.appendChild(this.StandardChart(value, goal));
 
 		// Value
 		var dataValueDiv = document.createElement("div");
