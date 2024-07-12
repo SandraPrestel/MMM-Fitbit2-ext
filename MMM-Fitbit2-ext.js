@@ -529,6 +529,22 @@ Module.register("MMM-Fitbit2-ext", {
 		  return chart;
 	},
 
+	// Heart Rate doesn't have a goal to be reached in percent, so it is only heart symbol
+	HeartRateChart: function(value){
+		var heartDiv = document.createElement("div");
+		iconDiv.className = "heartElement";
+
+		if (value > 0){
+			heartIcon = '<i class="fa-solid fa-heart"></i>';
+		} else {
+			heartIcon = '<i class="fa-regular fa-heart"></i>';
+		}
+
+		heartDiv.innerHTML = '<p> ' + heartIcon + '</p>';
+
+		return heartDiv;
+	},
+
 	// Create a chart representing the value reached per goal for a day, with day above and number below
 	ChartElement: function(resource, day, value, goal) {
 
@@ -542,7 +558,11 @@ Module.register("MMM-Fitbit2-ext", {
 
 		// Chart
 		//TODO: different chart for heart rate
-		chartDiv.appendChild(this.StandardChart(value, goal));
+		if (resource == "restingHeart") {
+			chartDiv.appendChild(this.HeartRateChart(value));
+		} else {
+			chartDiv.appendChild(this.StandardChart(value, goal));
+		}
 
 		// Value
 		var dataValueDiv = document.createElement("div");
@@ -557,7 +577,6 @@ Module.register("MMM-Fitbit2-ext", {
 		}
 
 		chartDiv.appendChild(dataValueDiv);
-
 
 		return chartDiv;
 
