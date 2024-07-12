@@ -138,7 +138,7 @@ if __name__ == "__main__":
     for day in days:
         weekdays.append(week[day.weekday()])
     
-    print_json("debug", "day 1:" + str(weekdays[0]))
+    print_json("debug", "weekday 1:" + str(weekdays[0]))
 
     
     #####################################################
@@ -172,6 +172,8 @@ if __name__ == "__main__":
             try:
                 currentData = []
                 currentGoals = []
+
+                print_json("debug", "Activity summary [0]:" + str(activity_summaries[0]))
 
                 for i in range(7):
                     currentData.append(activity_summaries[i][resource])
