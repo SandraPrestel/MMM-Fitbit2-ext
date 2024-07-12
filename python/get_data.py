@@ -242,43 +242,9 @@ if __name__ == "__main__":
     ##################################################
     if len(resource_list) == 0 or "sleep" in resource_list:
         try:
-
             # get sleep data for all days
-            sleep_data1 = authd_client.sleep(day1)
-            sleep_summary1 = sleep_data1["summary"]
-            total_minutes_asleep1 = sleep_summary1["totalMinutesAsleep"]
-
-            sleep_data2 = authd_client.sleep(day2)
-            sleep_summary2 = sleep_data2["summary"]
-            total_minutes_asleep2 = sleep_summary2["totalMinutesAsleep"]
-
-            sleep_data3 = authd_client.sleep(day3)
-            sleep_summary3 = sleep_data3["summary"]
-            total_minutes_asleep3 = sleep_summary3["totalMinutesAsleep"]
-
-            sleep_data4 = authd_client.sleep(day4)
-            sleep_summary4 = sleep_data4["summary"]
-            total_minutes_asleep4 = sleep_summary4["totalMinutesAsleep"]
-
-            sleep_data5 = authd_client.sleep(day5)
-            sleep_summary5 = sleep_data5["summary"]
-            total_minutes_asleep5 = sleep_summary5["totalMinutesAsleep"]
-
-            sleep_data6 = authd_client.sleep(day6)
-            sleep_summary6 = sleep_data6["summary"]
-            total_minutes_asleep6 = sleep_summary6["totalMinutesAsleep"]
-
-            sleep_data7 = authd_client.sleep(day7)
-            sleep_summary7 = sleep_data7["summary"]
-            total_minutes_asleep7 = sleep_summary7["totalMinutesAsleep"]
-
-            currentData = [total_minutes_asleep1,
-                           total_minutes_asleep2,
-                           total_minutes_asleep3,
-                           total_minutes_asleep4,
-                           total_minutes_asleep5,
-                           total_minutes_asleep6,
-                           total_minutes_asleep7]
+            currentData = []
+            currentGoals = []
 
             # python-fitbit does not have this function
             # so we make it ourselves
@@ -290,16 +256,18 @@ if __name__ == "__main__":
                     *fitbit_client._get_common_args()
                 )
                 return fitbit_client.make_request(url)
-
-            # There is only one sleep goal for all days
+            
             sleep_goal_data = get_sleep_goal(authd_client)
-            currentGoals = [sleep_goal_data["goal"]["minDuration"],
-                            sleep_goal_data["goal"]["minDuration"],
-                            sleep_goal_data["goal"]["minDuration"],
-                            sleep_goal_data["goal"]["minDuration"],
-                            sleep_goal_data["goal"]["minDuration"],
-                            sleep_goal_data["goal"]["minDuration"],
-                            sleep_goal_data["goal"]["minDuration"]]
+
+            for day in days:
+                sleep_data = authd_client.sleep(day)
+                sleep_summary = sleep_data["summary"]
+                total_minutes_asleep = sleep_summary["totalMinutesAsleep"]
+
+                currentData.append(total_minutes_asleep)
+
+                # There is only one sleep goal for all days
+                currentGoals.append(sleep_goal_data["goal"]["minDuration"])
 
             # --------------
             print_data(
@@ -317,48 +285,22 @@ if __name__ == "__main__":
     if len(resource_list) == 0 or "restingHeart" in resource_list:
         try:
             # get data for all days
-            heart_time_series_data1 = authd_client.time_series(resource="activities/heart", base_date=day1, period="1d")
-            heart_summary_time_series1 = heart_time_series_data1["activities-heart"]
-            heart_summary_day1 = heart_summary_time_series1[0]["value"]
+            currentData = []
+            currentGoals = []
 
-            heart_time_series_data2 = authd_client.time_series(resource="activities/heart", base_date=day2, period="1d")
-            heart_summary_time_series2 = heart_time_series_data2["activities-heart"]
-            heart_summary_day2 = heart_summary_time_series2[0]["value"]
+            for day in days:
+                heart_time_series_data = authd_client.time_series(resource="activities/heart", base_date=day, period="1d")
+                heart_summary_time_series = heart_time_series_data["activities-heart"]
+                heart_summary_day = heart_summary_time_series[0]["value"]
 
-            heart_time_series_data3 = authd_client.time_series(resource="activities/heart", base_date=day3, period="1d")
-            heart_summary_time_series3 = heart_time_series_data3["activities-heart"]
-            heart_summary_day3 = heart_summary_time_series3[0]["value"]
+                currentData.append(heart_summary_day["restingHeartRate"])
+                currentGoals.append(0)  # no goal for heart rate
 
-            heart_time_series_data4 = authd_client.time_series(resource="activities/heart", base_date=day4, period="1d")
-            heart_summary_time_series4 = heart_time_series_data4["activities-heart"]
-            heart_summary_day4 = heart_summary_time_series4[0]["value"]
-
-            heart_time_series_data5 = authd_client.time_series(resource="activities/heart", base_date=day5, period="1d")
-            heart_summary_time_series5 = heart_time_series_data5["activities-heart"]
-            heart_summary_day5 = heart_summary_time_series5[0]["value"]
-
-            heart_time_series_data6 = authd_client.time_series(resource="activities/heart", base_date=day6, period="1d")
-            heart_summary_time_series6 = heart_time_series_data6["activities-heart"]
-            heart_summary_day6 = heart_summary_time_series6[0]["value"]
-
-            heart_time_series_data7 = authd_client.time_series(resource="activities/heart", base_date=day7, period="1d")
-            heart_summary_time_series7 = heart_time_series_data7["activities-heart"]
-            heart_summary_day7 = heart_summary_time_series7[0]["value"]
-
-            currentData = [heart_summary_day1["restingHeartRate"],
-                           heart_summary_day2["restingHeartRate"],
-                           heart_summary_day3["restingHeartRate"],
-                           heart_summary_day4["restingHeartRate"],
-                           heart_summary_day5["restingHeartRate"],
-                           heart_summary_day6["restingHeartRate"],
-                           heart_summary_day7["restingHeartRate"]]
-            
-            goalData = [0,0,0,0,0,0,0]
             # --------------
             print_data(
                 resource="restingHeart",
                 data=currentData,
-                goals=goalData,
+                goals=currentGoals,
                 weekdays=weekdays
             )
         except KeyError as err:
@@ -371,44 +313,17 @@ if __name__ == "__main__":
         try:
 
             # get data for all days
-            calories_in_time_series_data1 = authd_client.time_series(resource="foods/log/caloriesIn", base_date=day1, period="1d")
-            calories_in_day1 = sum(float(c["value"]) for c in calories_in_time_series_data1["foods-log-caloriesIn"])
+            currentData = []
+            currentGoals = []
 
-            calories_in_time_series_data2 = authd_client.time_series(resource="foods/log/caloriesIn", base_date=day2, period="1d")
-            calories_in_day2 = sum(float(c["value"]) for c in calories_in_time_series_data2["foods-log-caloriesIn"])
-
-            calories_in_time_series_data3 = authd_client.time_series(resource="foods/log/caloriesIn", base_date=day3, period="1d")
-            calories_in_day3 = sum(float(c["value"]) for c in calories_in_time_series_data3["foods-log-caloriesIn"])
-
-            calories_in_time_series_data4 = authd_client.time_series(resource="foods/log/caloriesIn", base_date=day4, period="1d")
-            calories_in_day4 = sum(float(c["value"]) for c in calories_in_time_series_data4["foods-log-caloriesIn"])
-
-            calories_in_time_series_data5 = authd_client.time_series(resource="foods/log/caloriesIn", base_date=day5, period="1d")
-            calories_in_day5 = sum(float(c["value"]) for c in calories_in_time_series_data5["foods-log-caloriesIn"])
-
-            calories_in_time_series_data6 = authd_client.time_series(resource="foods/log/caloriesIn", base_date=day6, period="1d")
-            calories_in_day6 = sum(float(c["value"]) for c in calories_in_time_series_data6["foods-log-caloriesIn"])
-
-            calories_in_time_series_data7 = authd_client.time_series(resource="foods/log/caloriesIn", base_date=day7, period="1d")
-            calories_in_day7 = sum(float(c["value"]) for c in calories_in_time_series_data7["foods-log-caloriesIn"])
-
-            currentData = [calories_in_day1,
-                           calories_in_day2,
-                           calories_in_day3,
-                           calories_in_day4,
-                           calories_in_day5,
-                           calories_in_day6,
-                           calories_in_day7]
-
-            # There is only one food goal for all days
             food_goal_data = authd_client.food_goal()
-            currentGoals = [food_goal_data["goals"]["calories"],
-                            food_goal_data["goals"]["calories"],
-                            food_goal_data["goals"]["calories"],
-                            food_goal_data["goals"]["calories"],
-                            food_goal_data["goals"]["calories"],
-                            food_goal_data["goals"]["calories"],
-                            food_goal_data["goals"]["calories"]]
+
+            for day in days:
+                calories_in_time_series_data = authd_client.time_series(resource="foods/log/caloriesIn", base_date=day, period="1d")
+                calories_in_day = sum(float(c["value"]) for c in calories_in_time_series_data["foods-log-caloriesIn"])
+
+                currentData.append(calories_in_day)
+                currentGoals.append(food_goal_data["goals"]["calories"])  # only one food goal for all days
 
             # Changed to match other resources (used to be only calories remaining)
             print_data(
@@ -427,51 +342,19 @@ if __name__ == "__main__":
         try:
 
             # get data for all days
-            water_time_series_data1 = authd_client.time_series(resource="foods/log/water", base_date=day1, period="1d")
-            water_summary_time_series1 = water_time_series_data1["foods-log-water"]
-            water_summary_day1 = water_summary_time_series1[0]["value"]
+            currentData = []
+            currentGoals = []
 
-            water_time_series_data2 = authd_client.time_series(resource="foods/log/water", base_date=day2, period="1d")
-            water_summary_time_series2 = water_time_series_data2["foods-log-water"]
-            water_summary_day2 = water_summary_time_series2[0]["value"]
-            
-            water_time_series_data3 = authd_client.time_series(resource="foods/log/water", base_date=day3, period="1d")
-            water_summary_time_series3 = water_time_series_data3["foods-log-water"]
-            water_summary_day3 = water_summary_time_series3[0]["value"]
-
-            water_time_series_data4 = authd_client.time_series(resource="foods/log/water", base_date=day4, period="1d")
-            water_summary_time_series4 = water_time_series_data4["foods-log-water"]
-            water_summary_day4 = water_summary_time_series4[0]["value"]
-
-            water_time_series_data5 = authd_client.time_series(resource="foods/log/water", base_date=day5, period="1d")
-            water_summary_time_series5 = water_time_series_data5["foods-log-water"]
-            water_summary_day5 = water_summary_time_series5[0]["value"]
-
-            water_time_series_data6 = authd_client.time_series(resource="foods/log/water", base_date=day6, period="1d")
-            water_summary_time_series6 = water_time_series_data6["foods-log-water"]
-            water_summary_day6 = water_summary_time_series6[0]["value"]
-
-            water_time_series_data7 = authd_client.time_series(resource="foods/log/water", base_date=day7, period="1d")
-            water_summary_time_series7 = water_time_series_data7["foods-log-water"]
-            water_summary_day7 = water_summary_time_series7[0]["value"]
-
-            currentData = [max(int(round(float(water_summary_day1))),0),
-                           max(int(round(float(water_summary_day2))),0),
-                           max(int(round(float(water_summary_day3))),0),
-                           max(int(round(float(water_summary_day4))),0),
-                           max(int(round(float(water_summary_day5))),0),
-                           max(int(round(float(water_summary_day6))),0),
-                           max(int(round(float(water_summary_day7))),0)]
-            
-            # There is only one water goal for all days
             water_goal_data = authd_client.water_goal()
-            currentGoals = [water_goal_data["goal"]["goal"],
-                            water_goal_data["goal"]["goal"],
-                            water_goal_data["goal"]["goal"],
-                            water_goal_data["goal"]["goal"],
-                            water_goal_data["goal"]["goal"],
-                            water_goal_data["goal"]["goal"],
-                            water_goal_data["goal"]["goal"]]
+
+            for day in days:
+                water_time_series_data = authd_client.time_series(resource="foods/log/water", base_date=day, period="1d")
+                water_summary_time_series = water_time_series_data["foods-log-water"]
+                water_summary_day = water_summary_time_series[0]["value"]
+                
+                currentData.append(max(int(round(float(water_summary_day))),0))
+
+                currentGoals.append(water_goal_data["goal"]["goal"])    # only one water goal for all days
 
             # Changed to match other resources (used to be only water remaining)
             print_data(
