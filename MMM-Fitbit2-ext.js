@@ -532,7 +532,7 @@ Module.register("MMM-Fitbit2-ext", {
 	// Heart Rate doesn't have a goal to be reached in percent, so it is only heart symbol
 	HeartRateChart: function(value){
 		var heartDiv = document.createElement("div");
-		iconDiv.className = "heartElement";
+		heartDiv.className = "heartElement";
 
 		if (value > 0){
 			heartIcon = '<i class="fa-solid fa-heart"></i>';
@@ -557,7 +557,6 @@ Module.register("MMM-Fitbit2-ext", {
 		chartDiv.appendChild(dayDiv);
 
 		// Chart
-		//TODO: different chart for heart rate
 		if (resource == "restingHeart") {
 			chartDiv.appendChild(this.HeartRateChart(value));
 		} else {
