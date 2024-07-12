@@ -92,6 +92,7 @@ if __name__ == "__main__":
             resource=token,
             data=0,
             goals=1,
+            weekdays=["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
             debug=True
         )
         acc_tok = token["access_token"]
