@@ -465,8 +465,8 @@ Module.register("MMM-Fitbit2-ext", {
 	StandardChart: function(value, goal) {
 		var chart = document.createElement("div");
 		chart.className = "chart";
-		chart.style.width = "50px";
-		chart.style.height = "50px";
+		chart.style.width = "50px";		//TODO: move to CSS
+		chart.style.height = "50px";	//TODO: move to CSS
 
 		var ctx = document.createElement("canvas");
 		chart.appendChild(ctx);
