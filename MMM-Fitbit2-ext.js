@@ -338,7 +338,7 @@ Module.register("MMM-Fitbit2-ext", {
 		debug: false,
 		test: false,
 		showLastSynced: false,
-		updateInterval: 10,
+		updateInterval: 30,		// be aware of API limit of 150 calls/hour
 		pythonPath: "python3"	// set this in config.js if you use a virtual environment
 	},
 
