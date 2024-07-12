@@ -153,8 +153,8 @@ if __name__ == "__main__":
 
         for day in days:
             activity_list = authd_client.activities(day)
-            activity_summaries.append = activity_list["summary"]
-            activity_goals.append = activity_list["goals"]
+            activity_summaries.append(activity_list["summary"])
+            activity_goals.append(activity_list["goals"])
 
         ### Print the data for all activities
         if len(resource_list) == 0:
@@ -170,8 +170,8 @@ if __name__ == "__main__":
                 currentGoals = []
 
                 for i in range(7):
-                    currentData.append[activity_summaries[i][resource]]
-                    currentGoals.append[activity_goals[i][resource]]
+                    currentData.append(activity_summaries[i][resource])
+                    currentGoals.append(activity_goals[i][resource])
 
                 print_data(
                     resource=resource,
@@ -185,21 +185,12 @@ if __name__ == "__main__":
         # These require more complicated parsing
         if len(resource_list) == 0 or "activeMinutes" in resource_list:
             try:
-                currentData = [activity_summary1["fairlyActiveMinutes"] + activity_summary1["veryActiveMinutes"],
-                               activity_summary2["fairlyActiveMinutes"] + activity_summary2["veryActiveMinutes"],
-                               activity_summary3["fairlyActiveMinutes"] + activity_summary3["veryActiveMinutes"],
-                               activity_summary4["fairlyActiveMinutes"] + activity_summary4["veryActiveMinutes"],
-                               activity_summary5["fairlyActiveMinutes"] + activity_summary5["veryActiveMinutes"],
-                               activity_summary6["fairlyActiveMinutes"] + activity_summary6["veryActiveMinutes"],
-                               activity_summary7["fairlyActiveMinutes"] + activity_summary7["veryActiveMinutes"]]
+                currentData = []
+                currentGoals = []
 
-                currentGoals = [activity_goals1["activeMinutes"],
-                                activity_goals2["activeMinutes"],
-                                activity_goals3["activeMinutes"],
-                                activity_goals4["activeMinutes"],
-                                activity_goals5["activeMinutes"],
-                                activity_goals6["activeMinutes"],
-                                activity_goals7["activeMinutes"]]
+                for i in range(7):
+                    currentData.append(activity_summaries[i]["fairlyActiveMinutes"]+activity_summaries[i]["veryActiveMinutes"])
+                    currentGoals.append(activity_goals[i]["activeMinutes"])
 
                 print_data(
                     resource="activeMinutes",
@@ -212,85 +203,22 @@ if __name__ == "__main__":
 
         if len(resource_list) == 0 or "distance" in resource_list:
             try:
+                currentData = []
+                currentGoals = []
 
-                allDistances1 = activity_summary1["distances"]
-                dailyDistance1 = None
-                for x in allDistances1:
-                    if x["activity"] == "total":
-                        dailyDistance1 = x["distance"]
-                        break
-                if dailyDistance1 is None:
-                    dailyDistance1 = 0
-                
-                allDistances2 = activity_summary2["distances"]
-                dailyDistance2 = None
-                for x in allDistances2:
-                    if x["activity"] == "total":
-                        dailyDistance2 = x["distance"]
-                        break
-                if dailyDistance2 is None:
-                    dailyDistance2 = 0
+                for i in range(7):
+                    allDistances = activity_summaries[i]["distances"]
+                    dailyDistance = None
 
-                allDistances3 = activity_summary3["distances"]
-                dailyDistance3 = None
-                for x in allDistances3:
-                    if x["activity"] == "total":
-                        dailyDistance3 = x["distance"]
-                        break
-                if dailyDistance3 is None:
-                    dailyDistance3 = 0
+                    for x in allDistances:
+                        if x["activity"] == "total":
+                            dailyDistance1 = x["distance"]
+                            break
+                    if dailyDistance is None:
+                        dailyDistance = 0
 
-                allDistances4 = activity_summary4["distances"]
-                dailyDistance4 = None
-                for x in allDistances4:
-                    if x["activity"] == "total":
-                        dailyDistance4 = x["distance"]
-                        break
-                if dailyDistance4 is None:
-                    dailyDistance4 = 0
-                
-                allDistances5 = activity_summary5["distances"]
-                dailyDistance5 = None
-                for x in allDistances5:
-                    if x["activity"] == "total":
-                        dailyDistance5 = x["distance"]
-                        break
-                if dailyDistance5 is None:
-                    dailyDistance5 = 0
-
-                allDistances6 = activity_summary6["distances"]
-                dailyDistance6 = None
-                for x in allDistances6:
-                    if x["activity"] == "total":
-                        dailyDistance6= x["distance"]
-                        break
-                if dailyDistance6 is None:
-                    dailyDistance6 = 0
-
-                allDistances7 = activity_summary7["distances"]
-                dailyDistance7 = None
-                for x in allDistances7:
-                    if x["activity"] == "total":
-                        dailyDistance7 = x["distance"]
-                        break
-                if dailyDistance7 is None:
-                    dailyDistance7 = 0
-
-                currentData = [dailyDistance1,
-                               dailyDistance2,
-                               dailyDistance3,
-                               dailyDistance4,
-                               dailyDistance5,
-                               dailyDistance6,
-                               dailyDistance7]
-                
-                currentGoals = [activity_goals1["distance"],
-                                activity_goals2["distance"],
-                                activity_goals3["distance"],
-                                activity_goals4["distance"],
-                                activity_goals5["distance"],
-                                activity_goals6["distance"],
-                                activity_goals7["distance"]]
+                    currentData.append(dailyDistance)
+                    currentGoals.append(activity_goals[i]["distance"])
                 
                 print_data(
                     resource="distance",
