@@ -10,10 +10,9 @@
  * MIT Licensed.
  */
 
+const numberedDays = ["day1","day2","day3","day4","day5","day6","day7"];
+
 Module.register("MMM-Fitbit2-ext", {
-
-	numberedDays : ["day1","day2","day3","day4","day5","day6","day7"],
-
 	// Initial values
 	userData: {
 		steps: {
@@ -592,7 +591,9 @@ Module.register("MMM-Fitbit2-ext", {
 
 		chartRowDiv.appendChild(this.iconDiv(resource));
 
-		for (day in this.numberedDays){
+		Log.log(numberedDays);
+
+		for (day in numberedDays){
 			Log.log(day + this.userData[resource]);
 			daychart = this.ChartElement(resource, this.userData[resource][day]['weekday'], this.userData[resource][day]["value"], this.userData[resource][day]["goal"]);
 			chartRowDiv.appendChild(daychart);
