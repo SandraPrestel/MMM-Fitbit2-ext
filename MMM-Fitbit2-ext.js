@@ -593,11 +593,12 @@ Module.register("MMM-Fitbit2-ext", {
 
 		Log.log(numberedDays);
 
-		for (day in numberedDays){
+		for (day of numberedDays){
 			Log.log(day);
 			Log.log(this.userData[resource]);
+			Log.log(this.userData[resource][day]);
 
-			daychart = this.ChartElement(resource, this.userData[resource][day]['weekday'], this.userData[resource][day]["value"], this.userData[resource][day]["goal"]);
+			daychart = this.ChartElement(resource, this.userData[resource][day]["weekday"], this.userData[resource][day]["value"], this.userData[resource][day]["goal"]);
 			chartRowDiv.appendChild(daychart);
 		}
 
