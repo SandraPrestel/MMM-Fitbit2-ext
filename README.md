@@ -1,8 +1,8 @@
 # MMM-Fitbit2-ext
 
-### This Fork is to experiment with reading and evaluating fitbit data for multiple days.
+Read and display fitbit data for the last week.
 
-### _Current Development Status: Work In Progress_
+### _Current Status: in Development_
 
 (_Work to be done on MMM-Fitbit2 is identified and tracked [here](https://github.com/m-roberts/MMM-Fitbit2/projects)_)
 
@@ -16,31 +16,30 @@
 
 ### About This Module
 
-This module experiments with reading and displaying fitbit data for multiple days instead of only the current day. It expends [MMM-fitbit2](https://github.com/m-roberts/MMM-Fitbit2) by Mike Roberts, which in turn extends SVendittelli's original [MMM-fitbit](https://github.com/SVendittelli/MMM-fitbit) module. [MMM-fitbit](https://github.com/SVendittelli/MMM-fitbit) builds on top of the following changes that were incorporated from the efforts of others who forked the original repository:
+This module reads and displays fitbit data for the past seven days. It extends [MMM-fitbit2](https://github.com/m-roberts/MMM-Fitbit2) by Mike Roberts, which in turn extends SVendittelli's original [MMM-fitbit](https://github.com/SVendittelli/MMM-fitbit) module. [MMM-fitbit2](https://github.com/SVendittelli/MMM-fitbit) built on top of the following changes that were incorporated from the efforts of others who forked the original repository:
 
 - adding weight data ([engeld's fork](https://github.com/engeld/MMM-fitbit))
 - automatic re-authorisation when tokens have expired ([shbatm's fork](https://github.com/shbatm/MMM-fitbit))
 
-## Currently Supported Data
-
-TO BE CHANGED
+## Supported Data
 
 - Steps Walked (compared to goal)
 - Calories Burned (compared to goal)
 - Total Distance Walked (compared to goal)
 - \# of Active Minutes (compared to goal)
-- \# of Floors Climbed (compared to goal)
-- Resting Heart Rate (average for the day)
-- Today's Remaining Water Intake (amount consumed subtracted from goal)
-- Today's Remaining Calories To Consume (amount consumed subtracted from goal)
+- Today's Remaining Water Intake (compared to goal)
+- Today's Remaining Calories To Consume (compared to goal)
 - Sleep Time (compared to goal)
-- Current Weight (last weigh-in, if within the last 30 days)
+- Resting Heart Rate (average for the day)
 
 ## Dependencies
+
+These are installed during the setup process described below.
 
 ### Node.js
 
 - [python-shell](https://www.npmjs.com/package/python-shell/v/0.5.0)
+- chart.js
 
 ### Python 3
 
@@ -66,18 +65,24 @@ TO BE CHANGED
 
 When using Raspberry Pi OS bookworm and newer you need to use a virtual environment for running Python, otherwise you might encounter the message `error: externally-managed-environment`.
 
-To setup the environment run `python3 -m venv mmenv` (you can use any name instead of mmenv) in the root folder and activate it with `source mmenv/bin/activate`. You can now do the following installation steps within the virtual environment. To exit the environment, simply run `deactivate`.
+To setup the environment run `python3 -m venv mmenv` (you can use any name instead of mmenv) and activate it with `source mmenv/bin/activate`. The easiest option is to run it in the root folder (`~/`), but you can also use other directories. You can now do the following installation steps within the virtual environment. To exit the environment, simply run `deactivate`.
 
-After the installation the environment doesn't need to be active for the module to function. For this you have to set `pythonPath` within `config.js` to the python path of your virtual environment. In this example, it would be:
+After the installation the environment doesn't need to be active for the module to function. For this you have to set `pythonPath` within `config.js` of this module to the python path of your virtual environment. In this example, it would be:
 
+```javascript
+{
+	module: "MMM-Fitbit2-ext",
+	config: {
+		pythonPath: "/home/medicalmirror/mmenv/bin/python3"
+	...
+	}
+},
 ```
-pythonPath: "/home/medicalmirror/mmenv/bin/python3"
-```
 
-### Steps
+### Installation Steps
 
-```
-cd ~/MagicMirror # or whatever your path to Magic Mirror is
+```bash
+cd ~/MagicMirror 	# or whatever your path to Magic Mirror is
 
 cd modules
 
@@ -129,14 +134,12 @@ Add the example config below to your config file in `~/MagicMirror/config/config
 					"caloriesOut",
 					"distance",
 					"activeMinutes",
-					"floors",
 					"restingHeart",
 					"water",
 					"caloriesIn",
-					"sleep",
-					"weight"
+					"sleep"
 				],
-				updateInterval: 10
+				updateInterval: 30
 			}
 		},
 
@@ -144,10 +147,14 @@ Add the example config below to your config file in `~/MagicMirror/config/config
 
 **Finally, (re)start your MagicMirror!**
 
-## <!-- Configuration Options
+## Configuration Options
 
-This section is yet to be written...
--->
+| **Option**       | **Default** | **Description**                                                                                                                               |
+| ---------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pythonPath`     | see above   | Path to Python executable when using a virtual environment                                                                                    |
+| `credentials`    | see above   | ClientId and Secret configured in the previous steps                                                                                          |
+| `type`           | see above   | Data to be displayed <br>Possible values: `steps`, `caloriesOut`, `distance`, `activeMinutes`, `restingHeart`, `water`, `caloriesIn`, `sleep` |
+| `updateInterval` | see above   | How often the data is refreshed in minutes                                                                                                    |
 
 ### Notice
 
@@ -179,10 +186,6 @@ This must not be done too often otherwise the rate limit will be exceeded, and F
 ### CSS
 
 - MMM-Fitbit2-ext.css - styling.
-
-## Development
-
-Work to be done on MMM-Fitbit2 is identified and tracked [https://github.com/m-roberts/MMM-Fitbit2/projects](here).
 
 ## Troubleshooting
 

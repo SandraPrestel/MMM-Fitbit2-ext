@@ -12,8 +12,6 @@ from datetime import date, timedelta
 # as it is read in by node_helper.js         #
 ##############################################
 
-#TODO: make more loops instead of calling the same method several times in a row
-
 def print_data(resource, data, goals, weekdays, debug=False):
     if debug is True and not debug_mode:
         return
@@ -118,14 +116,7 @@ if __name__ == "__main__":
 
     # Determine the last 7 days (not including today)
     today = date.today()
-    day7 = today - timedelta(days=1)
-    day6 = today - timedelta(days=2)
-    day5 = today - timedelta(days=3)
-    day4 = today - timedelta(days=4)
-    day3 = today - timedelta(days=5)
-    day2 = today - timedelta(days=6)
-    day1 = today - timedelta(days=7)
-
+    
     days = []
     for i in range(7):
         days.append(today - timedelta(days=7-i))
@@ -151,7 +142,7 @@ if __name__ == "__main__":
     if len(resource_list) == 0 or \
             any(item in activity_resources_all for item in resource_list):
 
-        ### Get the data for all days
+        # Data is requested for the 7 days defined above
         activity_summaries = []
         activity_goals = []
 
@@ -162,14 +153,13 @@ if __name__ == "__main__":
 
             print_json("debug", "Activity summary :" + str(day) + " - " + str(activity_list))
 
-        ### Print the data for all activities
+        # The easily parsable resources are printed first within a loop
         if len(resource_list) == 0:
             activity_resources_selected = activity_resources_easy_parse
         else:
             activity_resources_selected = set(resource_list) & \
                 set(activity_resources_easy_parse)
 
-        # Get resources that are easy to parse
         for resource in activity_resources_selected:
             try:
                 currentData = []
@@ -246,7 +236,7 @@ if __name__ == "__main__":
             currentData = []
             currentGoals = []
 
-            # python-fitbit does not have this function
+            # python-fitbit does not have a function to get sleep goals
             # so we make it ourselves
             def get_sleep_goal(fitbit_client):
                 """
@@ -294,7 +284,9 @@ if __name__ == "__main__":
                 heart_summary_day = heart_summary_time_series[0]["value"]
 
                 currentData.append(heart_summary_day["restingHeartRate"])
-                currentGoals.append(0)  # no goal for heart rate
+
+                # There is no goal for heart rate
+                currentGoals.append(0)
 
             # --------------
             print_data(
@@ -323,9 +315,11 @@ if __name__ == "__main__":
                 calories_in_day = sum(float(c["value"]) for c in calories_in_time_series_data["foods-log-caloriesIn"])
 
                 currentData.append(calories_in_day)
-                currentGoals.append(food_goal_data["goals"]["calories"])  # only one food goal for all days
 
-            # Changed to match other resources (used to be only calories remaining)
+                 # There is only one food goal for all days
+                currentGoals.append(food_goal_data["goals"]["calories"]) 
+
+            # Changed to match other resources (was only calories remaining in fitbit2)
             print_data(
                 resource="caloriesIn",
                 data=currentData,
@@ -354,9 +348,10 @@ if __name__ == "__main__":
                 
                 currentData.append(max(int(round(float(water_summary_day))),0))
 
-                currentGoals.append(water_goal_data["goal"]["goal"])    # only one water goal for all days
+                # There is only one water goal for all days
+                currentGoals.append(water_goal_data["goal"]["goal"])    
 
-            # Changed to match other resources (used to be only water remaining)
+            # Changed to match other resources (was only water remaining in fitbit2)
             print_data(
                 resource="water",
                 data=currentData,

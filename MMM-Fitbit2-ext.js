@@ -11,6 +11,9 @@
  */
 
 Module.register("MMM-Fitbit2-ext", {
+
+	numberedDays : ["day1","day2","day3","day4","day5","day6","day7"],
+
 	// Initial values
 	userData: {
 		steps: {
@@ -367,6 +370,7 @@ Module.register("MMM-Fitbit2-ext", {
 			// if the resource sent within the payload is used, write its data into the global variable userData
 			resource = payload.resource;
 			if (this.inResources(resource)) {
+
 				// TODO: put this into a loop
 				this.userData[resource]["day1"]["weekday"] = payload.values.day1.weekday;
 				this.userData[resource]["day1"]["value"] = payload.values.day1.data;
@@ -586,30 +590,12 @@ Module.register("MMM-Fitbit2-ext", {
 		var chartRowDiv = document.createElement("div");
 		chartRowDiv.className = "chartrow";
 
-		// add icon
 		chartRowDiv.appendChild(this.iconDiv(resource));
 
-		//TODO: make this in a loop
-		day1chart = this.ChartElement(resource, this.userData[resource]["day1"]['weekday'], this.userData[resource]["day1"]["value"], this.userData[resource]["day1"]["goal"]);
-		chartRowDiv.appendChild(day1chart);
-
-		day2chart = this.ChartElement(resource, this.userData[resource]["day2"]['weekday'], this.userData[resource]["day2"]["value"], this.userData[resource]["day2"]["goal"]);
-		chartRowDiv.appendChild(day2chart);
-
-		day3chart = this.ChartElement(resource, this.userData[resource]["day3"]['weekday'], this.userData[resource]["day3"]["value"], this.userData[resource]["day3"]["goal"]);
-		chartRowDiv.appendChild(day3chart);
-
-		day4chart = this.ChartElement(resource, this.userData[resource]["day4"]['weekday'], this.userData[resource]["day4"]["value"], this.userData[resource]["day4"]["goal"]);
-		chartRowDiv.appendChild(day4chart);
-
-		day5chart = this.ChartElement(resource, this.userData[resource]["day5"]['weekday'], this.userData[resource]["day5"]["value"], this.userData[resource]["day5"]["goal"]);
-		chartRowDiv.appendChild(day5chart);
-
-		day6chart = this.ChartElement(resource, this.userData[resource]["day6"]['weekday'], this.userData[resource]["day6"]["value"], this.userData[resource]["day6"]["goal"]);
-		chartRowDiv.appendChild(day6chart);
-
-		day7chart = this.ChartElement(resource, this.userData[resource]["day7"]['weekday'], this.userData[resource]["day7"]["value"], this.userData[resource]["day7"]["goal"]);
-		chartRowDiv.appendChild(day7chart);
+		for (day in numberedDays){
+			daychart = this.ChartElement(resource, this.userData[resource][day]['weekday'], this.userData[resource][day]["value"], this.userData[resource][day]["goal"]);
+			chartRowDiv.appendChild(daychart);
+		}
 
 		return chartRowDiv;
 
