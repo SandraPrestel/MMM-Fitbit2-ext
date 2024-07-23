@@ -26,13 +26,14 @@
 	width: 30px;
 	display: block;
 	margin: 0 auto;
-	padding: 0px 0 0 10px;
+	padding: 0px 0 0 20px;
 	flex: 0 0 30px;
 }
 
 .heartElement {
-	height: 40px;
-	width: 40px;
+	height: 30px;
+	width: 30px;
+	flex: 0 0 30px;
 	align-items: center;
 }
 
@@ -42,7 +43,7 @@
 	flex-wrap: nowrap;
 	flex: 1;
 	align-items: center;
-	padding: 0px 5px 0 5px;
+	padding: 0px 2px 0 2px;
 	font-size: small;
   }
 
