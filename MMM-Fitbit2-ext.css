@@ -45,7 +45,7 @@
 
 .MMM-Fitbit2-ext .chart {
 	height: 25px;
-	width: 50px;
+	width: 25px;
 	align-items: center;
 	margin: 0 auto;
 	display: block;
@@ -61,7 +61,7 @@
 
 .MMM-Fitbit2-ext .heartElement {
 	height: 25px;
-	width: 50px;
+	width: 25px;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
