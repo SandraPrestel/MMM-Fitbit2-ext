@@ -10,7 +10,7 @@ Read and display fitbit data for the last week.
 
 [MagicMirror](https://github.com/MichMich/MagicMirror) Module for displaying Fitbit data, retrieved from Fitbit API ([https://api.fitbit.com](https://dev.fitbit.com/build/reference/web-api/)).
 
-![](screenshot.png)
+![](screenshot.png) #TODO
 
 **Note: this module requires that you set up your own "Fitbit app" using a free Fitbit account. It's not a big deal, it's just a container for your credentials and where to put all the vital information about what your app is or does. You can't access your data from Fitbit without it.**
 
@@ -34,12 +34,12 @@ This module reads and displays fitbit data for the past seven days. It extends [
 
 ## Dependencies
 
-These are installed during the setup process described below.
+These will be automatically installed during the Installation process described below.
 
 ### Node.js
 
 - [python-shell](https://www.npmjs.com/package/python-shell/v/0.5.0)
-- chart.js
+- [chart.js](https://www.chartjs.org/docs/latest/)
 
 ### Python 3
 
@@ -124,22 +124,25 @@ Add the example config below to your config file in `~/MagicMirror/config/config
 			module: "MMM-Fitbit2-ext",
 			position: "top_center",
 			config: {
-				pythonPath: "python3",
 				credentials: {
-					clientId: "<your client id>",
-					clientSecret: "<your client secret>",
+					clientId: "",
+					clientSecret: ""
 				},
 				resources: [
 					"steps",
-					"caloriesOut",
 					"distance",
 					"activeMinutes",
-					"restingHeart",
-					"water",
+					"caloriesOut",
 					"caloriesIn",
+					"water",
+					"restingHeart",
 					"sleep"
 				],
-				updateInterval: 30
+				debug: false,
+				test: false,
+				showLastSynced: false,
+				updateInterval: 30,
+				pythonPath: "python3"
 			}
 		},
 
@@ -153,8 +156,9 @@ Add the example config below to your config file in `~/MagicMirror/config/config
 | ---------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | `pythonPath`     | see above   | Path to Python executable when using a virtual environment                                                                                    |
 | `credentials`    | see above   | ClientId and Secret configured in the previous steps                                                                                          |
-| `type`           | see above   | Data to be displayed <br>Possible values: `steps`, `caloriesOut`, `distance`, `activeMinutes`, `restingHeart`, `water`, `caloriesIn`, `sleep` |
-| `updateInterval` | see above   | How often the data is refreshed in minutes                                                                                                    |
+| `resources`      | see above   | Data to be displayed <br>Possible values: `steps`, `caloriesOut`, `distance`, `activeMinutes`, `restingHeart`, `water`, `caloriesIn`, `sleep` |
+| `updateInterval` | see above   | How often the data is refreshed in minutes (see following note)                                                                               |
+| `debug`          | see above   | How often the data is refreshed in minutes (see following note)                                                                               |
 
 ### Notice
 
