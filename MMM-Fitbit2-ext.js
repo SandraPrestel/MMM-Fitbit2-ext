@@ -321,7 +321,7 @@ Module.register("MMM-Fitbit2-ext", {
 		}
 	},
 
-	// Default module config.
+	// Default module config
 	defaults: {
 		credentials: {
 			clientId: "",
@@ -344,33 +344,33 @@ Module.register("MMM-Fitbit2-ext", {
 		pythonPath: "python3"	// set this in config.js if you use a virtual environment
 	},
 
-	// Define required scripts.
+	// Define required scripts
 	getStyles: function() {
 		return ["MMM-Fitbit2-ext.css"];
 	},
 
-	// Get the needed scripts to make graphs.
+	// Get the needed scripts to make graphs
     getScripts: function () {
         return ["modules/" + this.name + "/node_modules/chart.js/dist/Chart.min.js"];
     },
 
-	// Override socket notification handler.
+	// Override socket notification handler
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === "API_DATA_RECEIVED") {
-			Log.log("Data received")
 
 			if (payload.clientId != this.config.credentials.clientId) {
 				// Not for this user
 				return
 			}
 
-			Log.log("Writing to internal storage...")
+			if (this.config.debug == true){
+				Log.log("Data received. Writing to internal storage...")
+			}
 
 			// if the resource sent within the payload is used, write its data into the global variable userData
 			resource = payload.resource;
 			if (this.inResources(resource)) {
 
-				// TODO: put this into a loop
 				this.userData[resource]["day1"]["weekday"] = payload.values.day1.weekday;
 				this.userData[resource]["day1"]["value"] = payload.values.day1.data;
 				this.userData[resource]["day1"]["goal"] = payload.values.day1.goal;
@@ -399,7 +399,9 @@ Module.register("MMM-Fitbit2-ext", {
 				this.userData[resource]["day7"]["value"] = payload.values.day7.data;
 				this.userData[resource]["day7"]["goal"] = payload.values.day7.goal;
 
-				Log.log("Wrote " + resource);
+				if (this.config.debug == true){
+					Log.log("Wrote " + resource);
+				}
 			}
 		}
 		if (notification === "UPDATE_VIEW") {
@@ -607,14 +609,8 @@ Module.register("MMM-Fitbit2-ext", {
 		if (resource != this.config.resources[0]){
 			var textDiv = document.createElement("div");
 			textDiv.className = "widgetheader";
-			textDiv.innerHTML = resource
-
 			widgetDiv.appendChild(textDiv);
 		}
-		
-		// Line: make widgetheader have a border-bottom in css
-		//TODO: css: border-bottom: 1px solid black;
-	
 
 		// Row of Charts
 		widgetDiv.appendChild(this.ChartRowElement(resource));

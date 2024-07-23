@@ -9,7 +9,7 @@
 }
 
 .widgetheader {
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid white;
   }
 
 .MMM-Fitbit2-ext .chartrow {
@@ -20,13 +20,15 @@
 
 .MMM-Fitbit2-ext .widgeticon {
 	height: 30px;
+	width: 30px;
 	display: block;
 	margin: 0 auto;
 	flex: 1 1 15%;
 }
 
-.icon {
+.heartElement {
 	height: 30px;
+	width: 30px;
 }
 
 .chartelement {
@@ -40,8 +42,8 @@
   }
 
 .chart {
-	height: 30px;
-	width: 30px;
+	height: 50px;
+	width: 50px;
 }
 
 .MMM-Fitbit2-ext .lastsyncedwrapper {
