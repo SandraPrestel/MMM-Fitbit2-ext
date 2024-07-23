@@ -9,7 +9,7 @@
 	padding: 0 5px 0 5px;
 }
 
-.widgetheader {
+.MMM-Fitbit2-ext .widgetheader {
 	border-bottom: 1px solid white;
   }
 
@@ -30,17 +30,7 @@
 	flex: 0 0 30px;
 }
 
-.heartElement {
-	height: 50px;
-	width: 50px;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	flex: 0 0 50x;
-	align-items: center;
-}
-
-.chartelement {
+.MMM-Fitbit2-ext .chartelement {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
@@ -49,15 +39,26 @@
 	font-size: small;
   }
 
-.chart {
+.MMM-Fitbit2-ext .chart {
 	height: 50px;
 	width: 50px;
 	align-items: center;
 }
 
-canvas {
+.MMM-Fitbit2-ext .chartcanvas {
 	height: 50px;
 	width: 50px;
+}
+
+.MMM-Fitbit2-ext .heartElement {
+	height: 50px;
+	width: 50px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	flex: 0 0 50x;
+	align-items: center;
+	font-size: medium;
 }
 
 .MMM-Fitbit2-ext .lastsyncedwrapper {

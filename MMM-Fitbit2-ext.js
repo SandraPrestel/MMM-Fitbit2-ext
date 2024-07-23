@@ -569,6 +569,7 @@ Module.register("MMM-Fitbit2-ext", {
 		chart.className = "chart";
 
 		var ctx = document.createElement("canvas");
+		ctx.className = "chartcanvas"
 		chart.appendChild(ctx);
 
 		// make sure that goal is not empty
@@ -612,17 +613,19 @@ Module.register("MMM-Fitbit2-ext", {
 				  'goal'
 				],
 				datasets: [{
-				  label: 'Chart',
-				  data: [chartValue, chartRemaining],
-				  backgroundColor: [
-					backgroundColorFull,
-					backgroundColorEmpty
-				  	]
+					label: 'Chart',
+				  	data: [chartValue, chartRemaining],
+				  	backgroundColor: [
+						backgroundColorFull,
+						backgroundColorEmpty
+				  	],
+					borderWidth: 1
 				}]
 			},
 			options: {
 				legend: {display: false}, 
-			  	tooltips: {enabled: false}
+			  	tooltips: {enabled: false},
+				layout: {padding: 0}
 			}
 		  });
 

@@ -183,16 +183,16 @@ This must not be done too often otherwise the rate limit will be exceeded, and F
 - `json_handler.py` - Handles JSON, including reading and writing token files.
 - `setup_access.py` - Used by `auth.sh` to generate token `.json` files.
 - `get_data.py` - Uses `python-fitbit` Python library to get Fitbit API data, using credentials from `tokens-<clientId>.json`. Client credentials and data to fetch is passed in via command line parameters. The response is printed out in JSON format, to be parsed by `node_helper.js`.
-- `get_data.py` -
+- `test_data.py` - Generates test data if `test` is set to `true`
 
 ### Javascript (used by MagicMirror)
 
-- `node_helper.js` - Calls `get_data.py`, passes it to `MMM-Fitbit2-ext.js`.
+- `node_helper.js` - Calls `get_data.py` or `test_data.py`, passes it to `MMM-Fitbit2-ext.js`.
 - `MMM-Fitbit2-ext.js` - Receives data from `node_helper.js` and injects it into DOM.
 
 ### CSS
 
-- MMM-Fitbit2-ext.css - styling.
+- `MMM-Fitbit2-ext.css` - Styling.
 
 ## Troubleshooting
 
