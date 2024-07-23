@@ -446,7 +446,7 @@ Module.register("MMM-Fitbit2-ext", {
 
 		var title = document.createElement("header");
         title.className = "title";
-        title.innerHTML = "Fitbit";
+        title.innerHTML = this.translate("FITBIT_TITLE");
         wrapper.appendChild(title);
 
 		if (this.loaded) {
