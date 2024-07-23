@@ -138,11 +138,11 @@ Add the example config below to your config file in `~/MagicMirror/config/config
 					"restingHeart",
 					"sleep"
 				],
-				debug: false,
-				test: false,
-				showLastSynced: false,
+				pythonPath: "python3",
 				updateInterval: 30,
-				pythonPath: "python3"
+				showLastSynced: false,
+				debug: false,
+				test: false
 			}
 		},
 
@@ -154,11 +154,13 @@ Add the example config below to your config file in `~/MagicMirror/config/config
 
 | **Option**       | **Default** | **Description**                                                                                                                               |
 | ---------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pythonPath`     | see above   | Path to Python executable when using a virtual environment                                                                                    |
 | `credentials`    | see above   | ClientId and Secret configured in the previous steps                                                                                          |
 | `resources`      | see above   | Data to be displayed <br>Possible values: `steps`, `caloriesOut`, `distance`, `activeMinutes`, `restingHeart`, `water`, `caloriesIn`, `sleep` |
-| `updateInterval` | see above   | How often the data is refreshed in minutes (see following note)                                                                               |
-| `debug`          | see above   | How often the data is refreshed in minutes (see following note)                                                                               |
+| `pythonPath`     | see above   | Path to Python executable when using a virtual environment                                                                                    |
+| `updateInterval` | see above   | How often the data is refreshed in minutes (see following note about API tokens)                                                              |
+| `showLastSynced` | see above   | Display the time of the last data refresh (`true` or `false`)                                                                                 |
+| `debug`          | see above   | see below unter "Troubleshooting"                                                                                                             |
+| `test`           | see above   | see below unter "Troubleshooting"                                                                                                             |
 
 ### Notice
 
@@ -181,6 +183,7 @@ This must not be done too often otherwise the rate limit will be exceeded, and F
 - `json_handler.py` - Handles JSON, including reading and writing token files.
 - `setup_access.py` - Used by `auth.sh` to generate token `.json` files.
 - `get_data.py` - Uses `python-fitbit` Python library to get Fitbit API data, using credentials from `tokens-<clientId>.json`. Client credentials and data to fetch is passed in via command line parameters. The response is printed out in JSON format, to be parsed by `node_helper.js`.
+- `get_data.py` -
 
 ### Javascript (used by MagicMirror)
 

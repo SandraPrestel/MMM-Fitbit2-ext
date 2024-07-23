@@ -31,9 +31,12 @@
 }
 
 .heartElement {
-	height: 40px;
-	width: 40px;
-	flex: 0 0 40x;
+	height: 50px;
+	width: 50px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	flex: 0 0 50x;
 	align-items: center;
 }
 
@@ -50,6 +53,11 @@
 	height: 50px;
 	width: 50px;
 	align-items: center;
+}
+
+canvas {
+	height: auto;
+	width: auto;
 }
 
 .MMM-Fitbit2-ext .lastsyncedwrapper {
