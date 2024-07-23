@@ -355,6 +355,14 @@ Module.register("MMM-Fitbit2-ext", {
         return ["modules/" + this.name + "/node_modules/chart.js/dist/Chart.min.js"];
     },
 
+	// Translations
+	getTranslations: function() {
+		return {
+				en: "translations/en.json",
+				de: "translations/de.json"
+		}
+	},
+	
 
 /// STARTING AND RUNNING
 	// Initialisation
