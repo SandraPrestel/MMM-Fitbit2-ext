@@ -625,7 +625,8 @@ Module.register("MMM-Fitbit2-ext", {
 			options: {
 				legend: {display: false}, 
 			  	tooltips: {enabled: false},
-				layout: {padding: 0}
+				layout: {padding: 0},
+				aspectRatio: 1
 			}
 		  });
 
