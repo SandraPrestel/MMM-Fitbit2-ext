@@ -48,6 +48,7 @@
 .MMM-Fitbit2-ext .chartcanvas {
 	height: 50px;
 	width: 50px;
+	margin: 0 auto;
 }
 
 .MMM-Fitbit2-ext .heartElement {
