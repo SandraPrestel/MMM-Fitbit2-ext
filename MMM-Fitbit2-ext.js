@@ -444,6 +444,11 @@ Module.register("MMM-Fitbit2-ext", {
 	getDom: function() {
 		var wrapper = document.createElement("div");
 
+		var title = document.createElement("header");
+        title.className = "title";
+        title.innerHTML = "Fitbit";
+        wrapper.appendChild(title);
+
 		if (this.loaded) {
 			wrapper.className = "wrapper"
 
