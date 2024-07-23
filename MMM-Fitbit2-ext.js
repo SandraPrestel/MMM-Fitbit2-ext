@@ -13,6 +13,7 @@
 const numberedDays = ["day1","day2","day3","day4","day5","day6","day7"];
 
 Module.register("MMM-Fitbit2-ext", {
+///	SETUP
 	// Initial values
 	userData: {
 		steps: {
@@ -344,7 +345,7 @@ Module.register("MMM-Fitbit2-ext", {
 		pythonPath: "python3"	// set this in config.js if you use a virtual environment
 	},
 
-	// Define required scripts
+	// Styling
 	getStyles: function() {
 		return ["MMM-Fitbit2-ext.css"];
 	},
@@ -353,6 +354,34 @@ Module.register("MMM-Fitbit2-ext", {
     getScripts: function () {
         return ["modules/" + this.name + "/node_modules/chart.js/dist/Chart.min.js"];
     },
+
+
+/// STARTING AND RUNNING
+	// Initialisation
+	start: function() {
+		Log.info("Starting module: " + this.name);
+		this.getData("Initial");
+
+		this.loaded = false;
+		this.fadeSpeed = 500;
+
+		// Schedule update interval.
+		var self = this;
+		setInterval(function() {
+			self.updateData();
+		}, this.config.updateInterval*60*1000);
+	},
+
+	getData: function(trigger) {
+		payload = {};
+		payload.config = this.config;
+		payload.trigger = trigger;
+		this.sendSocketNotification("GET DATA", payload);
+	},
+
+	updateData: function() {
+		this.getData("Update");
+	},
 
 	// Override socket notification handler
 	socketNotificationReceived: function(notification, payload) {
@@ -411,47 +440,33 @@ Module.register("MMM-Fitbit2-ext", {
 		}
 	},
 
-	getData: function(trigger) {
-		payload = {};
-		payload.config = this.config;
-		payload.trigger = trigger;
-		this.sendSocketNotification("GET DATA", payload);
+	// Override DOM generator - Generating the display
+	getDom: function() {
+		var wrapper = document.createElement("div");
+
+		if (this.loaded) {
+			wrapper.className = "wrapper"
+
+			for (resource in this.config.resources) {
+				wrapper.appendChild(this.UIElement(this.config.resources[resource]));
+			}
+
+			if (this.config.showLastSynced) {
+				wrapper.appendChild(this.LastSyncedElement());
+			}
+		}
+		else {
+			wrapper.innerHTML = "Loading...";
+			wrapper.className = "dimmed light small";
+		}
+		return wrapper;
 	},
 
-	// Initialisation
-	start: function() {
-		Log.info("Starting module: " + this.name);
-		this.getData("Initial");
 
-		this.loaded = false;
-		this.fadeSpeed = 500;
-
-		// Schedule update interval.
-		var self = this;
-		setInterval(function() {
-			self.updateData();
-		}, this.config.updateInterval*60*1000);
-	},
-
-	// Updates the data from fitbit
-	updateData: function() {
-		this.getData("Update");
-	},
-
+/// HELPER FUNCTIONS
 	// Checks whether the user wants to lookup a resource type
 	inResources: function(resource) {
 		return this.config.resources.indexOf(resource) > -1;
-	},
-
-	// Generate div for icon
-	iconDiv: function(resource) {
-		const iconPath = "/img/" + resource + ".png";
-
-		var iconDiv = document.createElement("img");
-		iconDiv.className = "widgeticon";
-		iconDiv.src = "modules/" + this.name + iconPath;
-
-		return iconDiv
 	},
 
 	// Add commas to step and calorie count
@@ -464,6 +479,88 @@ Module.register("MMM-Fitbit2-ext", {
 		hours = Math.floor(number / 60);
 		minutes = number % 60;
 		return ("00" + hours.toString()).slice(-2) + ":" + ("00" + minutes.toString()).slice(-2);
+	},
+
+/// DISPLAY MODULES
+	// Make each resource element for the UI
+	UIElement: function(resource) {
+		var widgetDiv = document.createElement("div");
+		widgetDiv.className = "widget";
+
+		// Line to separate Resources (unless it is the first resource)
+		if (resource != this.config.resources[0]){
+			var textDiv = document.createElement("div");
+			textDiv.className = "widgetheader";
+			widgetDiv.appendChild(textDiv);
+		}
+
+		// Row of Charts
+		widgetDiv.appendChild(this.ChartRowElement(resource));
+
+		return widgetDiv;
+	},
+
+	// Create a row of charts (one chart per day), preceded by the icon
+	ChartRowElement: function(resource){
+		var chartRowDiv = document.createElement("div");
+		chartRowDiv.className = "chartrow";
+
+		chartRowDiv.appendChild(this.iconDiv(resource));
+
+		for (day of numberedDays){
+			daychart = this.ChartElement(resource, this.userData[resource][day]["weekday"], this.userData[resource][day]["value"], this.userData[resource][day]["goal"]);
+			chartRowDiv.appendChild(daychart);
+		}
+
+		return chartRowDiv;
+
+	},
+
+	// Icon for each resource
+	iconDiv: function(resource) {
+		const iconPath = "/img/" + resource + ".png";
+
+		var iconDiv = document.createElement("img");
+		iconDiv.className = "widgeticon";
+		iconDiv.src = "modules/" + this.name + iconPath;
+
+		return iconDiv
+	},
+
+	// Create a chart representing the value reached per goal for a day, with day above and number below
+	ChartElement: function(resource, day, value, goal) {
+
+		var chartDiv = document.createElement("div");
+		chartDiv.className = "chartelement";
+
+		// Day
+		var dayDiv = document.createElement("div");
+		dayDiv.innerHTML = day;
+		chartDiv.appendChild(dayDiv);
+
+		// Chart
+		if (resource == "restingHeart") {
+			chartDiv.appendChild(this.HeartRateChart(value));
+		} else {
+			chartDiv.appendChild(this.StandardChart(value, goal));
+		}
+
+		// Value
+		var dataValueDiv = document.createElement("div");
+		dataValueDiv.className = "chartvalue";
+
+		if (["steps", "caloriesOut", "caloriesIn"].indexOf(resource) > -1) {
+			dataValueDiv.innerHTML = this.formatNumberWithCommas(value);
+		} else if (resource == "sleep") {
+			dataValueDiv.innerHTML = this.formatMinsToHourMin(value);
+		} else {
+			dataValueDiv.innerHTML = value;
+		}
+
+		chartDiv.appendChild(dataValueDiv);
+
+		return chartDiv;
+
 	},
 
 	// Standard Doughnut chart for most resources
@@ -548,76 +645,6 @@ Module.register("MMM-Fitbit2-ext", {
 		return heartDiv;
 	},
 
-	// Create a chart representing the value reached per goal for a day, with day above and number below
-	ChartElement: function(resource, day, value, goal) {
-
-		var chartDiv = document.createElement("div");
-		chartDiv.className = "chartelement";
-
-		// Day
-		var dayDiv = document.createElement("div");
-		dayDiv.innerHTML = day;
-		chartDiv.appendChild(dayDiv);
-
-		// Chart
-		if (resource == "restingHeart") {
-			chartDiv.appendChild(this.HeartRateChart(value));
-		} else {
-			chartDiv.appendChild(this.StandardChart(value, goal));
-		}
-
-		// Value
-		var dataValueDiv = document.createElement("div");
-		dataValueDiv.className = "chartvalue";
-
-		if (["steps", "caloriesOut", "caloriesIn"].indexOf(resource) > -1) {
-			dataValueDiv.innerHTML = this.formatNumberWithCommas(value);
-		} else if (resource == "sleep") {
-			dataValueDiv.innerHTML = this.formatMinsToHourMin(value);
-		} else {
-			dataValueDiv.innerHTML = value;
-		}
-
-		chartDiv.appendChild(dataValueDiv);
-
-		return chartDiv;
-
-	},
-
-	// Create a row of charts (one chart per day), preceded by the icon
-	ChartRowElement: function(resource){
-		var chartRowDiv = document.createElement("div");
-		chartRowDiv.className = "chartrow";
-
-		chartRowDiv.appendChild(this.iconDiv(resource));
-
-		for (day of numberedDays){
-			daychart = this.ChartElement(resource, this.userData[resource][day]["weekday"], this.userData[resource][day]["value"], this.userData[resource][day]["goal"]);
-			chartRowDiv.appendChild(daychart);
-		}
-
-		return chartRowDiv;
-
-	},
-
-	// Make each resource element for the UI
-	UIElement: function(resource) {
-		var widgetDiv = document.createElement("div");
-		widgetDiv.className = "widget";
-
-		// Line to separate Resources (unless it is the first resource)
-		if (resource != this.config.resources[0]){
-			var textDiv = document.createElement("div");
-			textDiv.className = "widgetheader";
-			widgetDiv.appendChild(textDiv);
-		}
-
-		// Row of Charts
-		widgetDiv.appendChild(this.ChartRowElement(resource));
-
-		return widgetDiv;
-	},
-
 	LastSyncedElement: function(resource) {
 		var lastSyncedWrapperDiv = document.createElement("div");
 		lastSyncedWrapperDiv.className = "lastsynced";
@@ -649,27 +676,5 @@ Module.register("MMM-Fitbit2-ext", {
 		lastSyncedWrapperDiv.appendChild(textBottomWrapperDiv);
 
 		return lastSyncedWrapperDiv;
-	},
-
-	// Override DOM generator
-	getDom: function() {
-		var wrapper = document.createElement("div");
-
-		if (this.loaded) {
-			wrapper.className = "wrapper"
-
-			for (resource in this.config.resources) {
-				wrapper.appendChild(this.UIElement(this.config.resources[resource]));
-			}
-
-			if (this.config.showLastSynced) {
-				wrapper.appendChild(this.LastSyncedElement());
-			}
-		}
-		else {
-			wrapper.innerHTML = "Loading...";
-			wrapper.className = "dimmed light small";
-		}
-		return wrapper;
-	},
+	}
 });

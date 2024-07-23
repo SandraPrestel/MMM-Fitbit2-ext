@@ -1,7 +1,7 @@
 .MMM-Fitbit2-ext .wrapper {
 	display: flex;
 	flex-direction: column;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 }
 
 .MMM-Fitbit2-ext .widget {
@@ -15,7 +15,7 @@
 .MMM-Fitbit2-ext .chartrow {
 	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 }
 
 .MMM-Fitbit2-ext .widgeticon {
@@ -23,7 +23,7 @@
 	width: 30px;
 	display: block;
 	margin: 0 auto;
-	flex: 1 1 15%;
+	flex: 0 0 30px;
 }
 
 .heartElement {
