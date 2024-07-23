@@ -2,7 +2,9 @@
 
 Read and display fitbit data for the last week.
 
-### _Current Status: in Development_
+### _Current Status: Development finished, no further maintenance_
+
+At the point of the last commit this module works as described, but will not receive any further maintenance.
 
 (_Work to be done on MMM-Fitbit2 is identified and tracked [here](https://github.com/m-roberts/MMM-Fitbit2/projects)_)
 
@@ -10,7 +12,7 @@ Read and display fitbit data for the last week.
 
 [MagicMirror](https://github.com/MichMich/MagicMirror) Module for displaying Fitbit data, retrieved from Fitbit API ([https://api.fitbit.com](https://dev.fitbit.com/build/reference/web-api/)).
 
-![](screenshot.png) #TODO
+![](screenshot.png)
 
 **Note: this module requires that you set up your own "Fitbit app" using a free Fitbit account. It's not a big deal, it's just a container for your credentials and where to put all the vital information about what your app is or does. You can't access your data from Fitbit without it.**
 
