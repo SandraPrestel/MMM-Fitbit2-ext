@@ -362,7 +362,7 @@ Module.register("MMM-Fitbit2-ext", {
 				de: "translations/de.json"
 		}
 	},
-	
+
 
 /// STARTING AND RUNNING
 	// Initialisation
@@ -548,7 +548,7 @@ Module.register("MMM-Fitbit2-ext", {
 
 		// Day
 		var dayDiv = document.createElement("div");
-		dayDiv.innerHTML = day;
+		dayDiv.innerHTML = this.translate(day);
 		chartDiv.appendChild(dayDiv);
 
 		// Chart

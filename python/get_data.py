@@ -33,7 +33,7 @@ def print_empty_resource(resource):
         resource=resource,
         data=[0,0,0,0,0,0,0],
         goals=[1,1,1,1,1,1,1],
-        weekdays=["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+        weekdays=["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
     )
 
 
