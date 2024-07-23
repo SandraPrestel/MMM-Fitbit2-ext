@@ -5,8 +5,12 @@
 }
 
 .MMM-Fitbit2-ext .widget {
-	padding: 10px 5px 0 5px;
+	padding: 0px 10px 0 10px;
 }
+
+.widgetheader {
+	border-bottom: 1px solid black;
+  }
 
 .MMM-Fitbit2-ext .chartrow {
 	display: flex;
@@ -14,30 +18,29 @@
 	flex-wrap: wrap;
 }
 
-.MMM-Fitbit2-ext .widgettext {
-	height: 60px;
-	padding: 0 0 5px 0;
-	text-align: center;
-}
-
 .MMM-Fitbit2-ext .widgeticon {
-	opacity: 0.6;
-	height: 40px;
 	display: block;
 	margin: 0 auto;
+	flex: 0 0 15%;
 }
 
-.MMM-Fitbit2-ext .widgetprogbarbkg {
-	position: relative;
-	width: 75px;
-	height: 5px;
-	background-color: grey;
+.icon {
+	height: 50px;
 }
 
-.MMM-Fitbit2-ext .widgetprogbar {
-	position: absolute;
-	height: 100%;
-	background-color: lightgrey;
+.chartelement {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	flex: 1;
+	align-items: center;
+	padding: 0px 5px 0 5px;
+	font-size: small;
+  }
+
+.chart {
+	height: 30px;
+	width: 30px;
 }
 
 .MMM-Fitbit2-ext .lastsyncedwrapper {

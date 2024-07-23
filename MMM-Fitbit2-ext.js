@@ -468,8 +468,6 @@ Module.register("MMM-Fitbit2-ext", {
 	StandardChart: function(value, goal) {
 		var chart = document.createElement("div");
 		chart.className = "chart";
-		chart.style.width = "50px";		//TODO: move to CSS
-		chart.style.height = "50px";	//TODO: move to CSS
 
 		var ctx = document.createElement("canvas");
 		chart.appendChild(ctx);
@@ -605,13 +603,15 @@ Module.register("MMM-Fitbit2-ext", {
 		var widgetDiv = document.createElement("div");
 		widgetDiv.className = "widget";
 
-		// Header = Resource name
-		var textDiv = document.createElement("div");
-		textDiv.className = "widgetheader";
-		textDiv.innerHTML = resource
+		// Line to separate Resources (unless it is the first resource)
+		if (resource != this.config.resources[0]){
+			var textDiv = document.createElement("div");
+			textDiv.className = "widgetheader";
+			textDiv.innerHTML = resource
 
-		widgetDiv.appendChild(textDiv);
-
+			widgetDiv.appendChild(textDiv);
+		}
+		
 		// Line: make widgetheader have a border-bottom in css
 		//TODO: css: border-bottom: 1px solid black;
 	
