@@ -1,4 +1,9 @@
-
+.MMM-Fitbit2-ext .wrapper {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	max-width: 50%;
+}
 
 .MMM-Fitbit2-ext .widget {
 	padding: 0px 10px 0 10px;
