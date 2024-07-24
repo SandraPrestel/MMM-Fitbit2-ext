@@ -9,7 +9,7 @@ const PythonShell = require("python-shell");
 
 module.exports = NodeHelper.create({
 
-	// Subclass socketNotificationReceived received.
+	// receive notification from MMM-Fitbit2-ext.js
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === "GET DATA") {
 			console.log("MMM-Fitbit2-ext: " + payload.trigger + " request to get data received");
@@ -17,6 +17,7 @@ module.exports = NodeHelper.create({
 		}
 	},
 
+	// Load data from python script
 	getData: function (config) {
 		const self = this;
 		let fileName;
@@ -31,6 +32,7 @@ module.exports = NodeHelper.create({
 		}
 		console.log("MMM-Fitbit2-ext: START " + fileName);
 
+		// Prepare arguments for python shell
 		var pyArgs = []
 
 		if (config.debug) {
@@ -50,6 +52,7 @@ module.exports = NodeHelper.create({
 			console.log("MMM-Fitbit2-ext: " + JSON.stringify(pyArgs))
 		}
 
+		// Start Python shell to run the script in
 		const fitbitPyShell = new PythonShell(
 			fileName, {
 				mode: "json",
@@ -60,18 +63,18 @@ module.exports = NodeHelper.create({
 			}
 		);
 
+		// Catch message from the python script and return to MMM-Fitbit2-ext.js
 		fitbitPyShell.on("message", function (message) {
 			if (config.debug) {
 				console.log("MMM-Fitbit2-ext: Message received: " + JSON.stringify(message))
 			}
 			if (message.type == "data") {
-				//console.log("API-Data received, sending Nofification...")
 				message.clientId = config.credentials.clientId
 				self.sendSocketNotification("API_DATA_RECEIVED", message);
-				//console.log("API-Data Nofification sent.")
 			}
 		});
 
+		// Shutdown shell after script has ended
 		fitbitPyShell.end(function (err) {
 			if (err) {
 				throw err;
