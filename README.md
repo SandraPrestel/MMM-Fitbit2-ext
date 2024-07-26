@@ -161,8 +161,8 @@ Add the example config below to your config file in `~/MagicMirror/config/config
 | `pythonPath`     | see above   | Path to Python executable when using a virtual environment                                                                                    |
 | `updateInterval` | see above   | How often the data is refreshed in minutes (see following note about API tokens)                                                              |
 | `showLastSynced` | see above   | Display the time of the last data refresh (`true` or `false`)                                                                                 |
-| `debug`          | see above   | see below unter "Troubleshooting"                                                                                                             |
-| `test`           | see above   | see below unter "Troubleshooting"                                                                                                             |
+| `debug`          | see above   | see below at "Troubleshooting"                                                                                                                |
+| `test`           | see above   | see below at "Troubleshooting"                                                                                                                |
 
 ### Notice
 
