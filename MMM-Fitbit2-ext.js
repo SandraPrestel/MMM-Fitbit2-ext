@@ -338,6 +338,7 @@ Module.register("MMM-Fitbit2-ext", {
 			"restingHeart",
 			"sleep"
 		],
+		showHeader: true,
 		debug: false,
 		test: false,
 		showLastSynced: false,
@@ -452,10 +453,9 @@ Module.register("MMM-Fitbit2-ext", {
 	getDom: function() {
 		var wrapper = document.createElement("div");
 
-		var title = document.createElement("header");
-        title.className = "title";
-        title.innerHTML = this.translate("FITBIT_TITLE");
-        wrapper.appendChild(title);
+		if(this.config.showHeader){
+			wrapper.appendChild(this.HeaderLine());
+		}
 
 		if (this.loaded) {
 			wrapper.className = "wrapper"
@@ -495,6 +495,14 @@ Module.register("MMM-Fitbit2-ext", {
 	},
 
 /// DISPLAY MODULES
+	HeaderLine: function(){
+		var title = document.createElement("header");
+        title.className = "title";
+        title.innerHTML = this.translate("FITBIT_TITLE");
+
+		return title;
+	},
+
 	// Make each resource element for the UI
 	UIElement: function(resource) {
 		var widgetDiv = document.createElement("div");

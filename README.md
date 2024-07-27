@@ -140,6 +140,7 @@ Add the example config below to your config file in `~/MagicMirror/config/config
 					"restingHeart",
 					"sleep"
 				],
+				showHeader: true,
 				pythonPath: "python3",
 				updateInterval: 30,
 				showLastSynced: false,
@@ -158,6 +159,7 @@ Add the example config below to your config file in `~/MagicMirror/config/config
 | ---------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | `credentials`    | see above   | ClientId and Secret configured in the previous steps                                                                                          |
 | `resources`      | see above   | Data to be displayed <br>Possible values: `steps`, `caloriesOut`, `distance`, `activeMinutes`, `restingHeart`, `water`, `caloriesIn`, `sleep` |
+| `showHeader`     | see above   | Whether the header text should be displayed                                                                                                   |
 | `pythonPath`     | see above   | Path to Python executable when using a virtual environment                                                                                    |
 | `updateInterval` | see above   | How often the data is refreshed in minutes (see following note about API tokens)                                                              |
 | `showLastSynced` | see above   | Display the time of the last data refresh (`true` or `false`)                                                                                 |
