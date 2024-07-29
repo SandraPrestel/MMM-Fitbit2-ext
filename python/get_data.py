@@ -50,7 +50,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-d', '--debug', action='store_true', default=False)
-    # TODO: print dummy data if this is called
     parser.add_argument('-t', '--test', action='store_true', default=False)
 
     parser.add_argument("client_id", type=str)
@@ -210,7 +209,7 @@ if __name__ == "__main__":
 
                     for x in allDistances:
                         if x["activity"] == "total":
-                            dailyDistance1 = x["distance"]
+                            dailyDistance = x["distance"]
                             break
                     if dailyDistance is None:
                         dailyDistance = 0
